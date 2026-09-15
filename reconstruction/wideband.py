@@ -261,7 +261,7 @@ def reconstruct_wideband(
 
     if verbose:
         print("Reconstruction complete.  Volume shape: {}".format(f_volume.shape))
-        print("z range: [{:.3f}, {:.3f}] m  (δz = {:.4f} m)".format(
+        print("z range: [{:.3f}, {:.3f}] m  (dz = {:.4f} m)".format(
             z_arr[0], z_arr[-1], dz))
 
     return f_volume, x_arr, y_arr, z_arr

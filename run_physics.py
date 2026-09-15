@@ -50,14 +50,14 @@ cfg = ApertureConfig(
 )
 
 print("=" * 60)
-print("mmwave-imaging — Physics reconstruction demo")
+print("mmwave-imaging - Physics reconstruction demo")
 print("=" * 60)
-print(f"  Frequency:    {cfg.f_min/1e9:.0f}–{cfg.f_max/1e9:.0f} GHz  (B = {cfg.bandwidth/1e9:.0f} GHz)")
-print(f"  Aperture:     {cfg.aperture_x*100:.0f} cm × {cfg.aperture_y*100:.0f} cm")
-print(f"  Grid:         {cfg.nx} × {cfg.ny} × {cfg.nf}")
-print(f"  λ_min / 2:    {(C/cfg.f_max)/2*1000:.1f} mm  (dx = {(cfg.x_arr[1]-cfg.x_arr[0])*1000:.1f} mm)")
-print(f"  δz theory:    {theoretical_range_resolution(cfg.f_min, cfg.f_max)*100:.2f} cm")
-print(f"  δx theory:    {theoretical_cross_range_resolution(cfg.f_center, 0.5, cfg.aperture_x)*10:.1f} mm (at z=50 cm)")
+print(f"  Frequency:    {cfg.f_min/1e9:.0f}-{cfg.f_max/1e9:.0f} GHz  (B = {cfg.bandwidth/1e9:.0f} GHz)")
+print(f"  Aperture:     {cfg.aperture_x*100:.0f} cm x {cfg.aperture_y*100:.0f} cm")
+print(f"  Grid:         {cfg.nx} x {cfg.ny} x {cfg.nf}")
+print(f"  lambda_min/2: {(C/cfg.f_max)/2*1000:.1f} mm  (dx = {(cfg.x_arr[1]-cfg.x_arr[0])*1000:.1f} mm)")
+print(f"  delta_z th.:  {theoretical_range_resolution(cfg.f_min, cfg.f_max)*100:.2f} cm")
+print(f"  delta_x th.:  {theoretical_cross_range_resolution(cfg.f_center, 0.5, cfg.aperture_x)*10:.1f} mm (at z=50 cm)")
 print()
 
 # -----------------------------------------------------------------------
@@ -121,7 +121,7 @@ if prof_max > 0:
         fwhm = zv[falling[-1]] - zv[rising[0]]
         theory = theoretical_range_resolution(27e9, 33e9)
         print(f"  Measured FWHM:  {fwhm*100:.2f} cm")
-        print(f"  Theory δz:      {theory*100:.2f} cm")
+        print(f"  Theory delta_z: {theory*100:.2f} cm")
         print(f"  Ratio:          {fwhm/theory:.2f}  (ideal = 1.0)")
     else:
         print("  FWHM measurement: peak not resolved (adjust depth/grid)")
