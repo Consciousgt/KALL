@@ -165,8 +165,9 @@ def reconstruct_wideband(
     propagating = kz2 >= 0                          # evanescent-mode mask
     kz_all = np.where(propagating, np.sqrt(np.abs(kz2)), 0.0)  # (nx, ny, nf)
 
-    # Phase screen: exp(-j kz Z1), zero out evanescent modes
-    phase_screen = np.where(propagating, np.exp(-1j * kz_all * focus_depth), 0.0 + 0j)
+    # Phase screen: exp(+j kz Z1), zero out evanescent modes
+    # Positive sign back-propagates from aperture to reference depth Z1.
+    phase_screen = np.where(propagating, np.exp(+1j * kz_all * focus_depth), 0.0 + 0j)
     S_tilde = S * phase_screen                      # (nx, ny, nf)
 
     # -----------------------------------------------------------------------
@@ -241,20 +242,22 @@ def reconstruct_wideband(
     if verbose:
         print("Step 4: 3-D IFFT...")
 
-    # We have S_uniform in (kx, ky, kz) space with kx/ky centred (fftshifted)
-    # and kz going from min to max (also conceptually centred in the positive
-    # half-space). The 3-D IFFT is applied over all three axes.
+    # S_uniform has centred (kx, ky) axes (fftshifted) and monotonic kz from
+    # min to max. We apply ifftshift on axes (0, 1) only, perform ifftn across
+    # all three axes, and fftshift axes (0, 1) back to centre (x, y).
     f_volume = fftshift(
-        ifftn(ifftshift(S_uniform, axes=(0, 1, 2)), axes=(0, 1, 2)),
-        axes=(0, 1, 2),
+        ifftn(ifftshift(S_uniform, axes=(0, 1)), axes=(0, 1, 2)),
+        axes=(0, 1),
     )  # shape (nx, ny, n_kz)
 
     # Reconstruct the z-axis coordinates corresponding to the uniform kz grid.
     # IFFT of a signal spanning [kz_min, kz_max] with N_kz points has a
     # spatial period T_z = 2π / Δkz and sample spacing δz = T_z / N_kz.
+    # Since phase multiplication focused to reference depth Z1, the z grid
+    # is offset by focus_depth.
     dkz = kz_uniform[1] - kz_uniform[0]
     dz = 2 * np.pi / (n_kz * dkz)
-    z_arr = np.arange(n_kz) * dz  # z from 0 to (n_kz-1)*dz
+    z_arr = np.arange(n_kz) * dz + focus_depth
 
     if verbose:
         print("Reconstruction complete.  Volume shape: {}".format(f_volume.shape))

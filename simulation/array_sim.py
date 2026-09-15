@@ -95,8 +95,9 @@ class ApertureConfig:
         dy = self.dy if self.dy is not None else lambda_min / 2
 
         # Aperture sample positions (centred on 0)
-        nx = max(int(np.ceil(self.aperture_x / dx)), 2)
-        ny = max(int(np.ceil(self.aperture_y / dy)), 2)
+        # N intervals = ceil(aperture / step); N points = N intervals + 1
+        nx = max(int(np.ceil(self.aperture_x / dx)) + 1, 3)
+        ny = max(int(np.ceil(self.aperture_y / dy)) + 1, 3)
         # Force odd length so DC bin is centred
         if nx % 2 == 0:
             nx += 1

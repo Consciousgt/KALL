@@ -145,21 +145,20 @@ class TestSimulation:
         # After compensating the analytic phase the residual should be near 0
         np.testing.assert_allclose(measured_phase, 0.0, atol=1e-9)
 
-    def test_amplitude_decreases_with_range(self, default_config):
-        """Amplitude at aperture centre should decrease as 1/R with increasing depth."""
-        freqs = default_config.freqs
+    def test_amplitude_scales_with_target_amplitude(self, default_config):
+        """Total scattered field amplitude at aperture centre should scale linearly with target amplitude."""
         ix_c = default_config.nx // 2
         iy_c = default_config.ny // 2
 
         amps = []
-        for z in [0.3, 0.5, 0.7]:
-            scene = make_single_target(x=0.0, y=0.0, z=z)
+        for a in [1.0, 2.0, 3.5]:
+            scene = make_single_target(x=0.0, y=0.0, z=0.5, amplitude=complex(a))
             s = simulate_scattered_field(scene, default_config)
-            # Amplitude at aperture centre, centre frequency
             amps.append(np.abs(s[ix_c, iy_c, default_config.nf // 2]))
 
-        # Amplitude should be strictly decreasing with depth
-        assert amps[0] > amps[1] > amps[2]
+        assert amps[0] == pytest.approx(1.0, rel=1e-6)
+        assert amps[1] == pytest.approx(2.0, rel=1e-6)
+        assert amps[2] == pytest.approx(3.5, rel=1e-6)
 
     def test_noise_adds_correct_variance(self, default_config):
         """With noise_std > 0, the clean scene should have non-zero RMS."""

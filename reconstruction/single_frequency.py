@@ -92,8 +92,15 @@ def reconstruct_single_frequency(
     propagating = kz2 >= 0                         # mask: suppress evanescent modes
     kz = np.where(propagating, np.sqrt(np.abs(kz2)), 0.0)
 
-    # --- Step 3: Matched phase-screen (backward propagation to depth Z1) ---
-    H = np.where(propagating, np.exp(-1j * kz * focus_depth), 0.0)
+    # --- Step 3: Matched phase-screen (back-propagation to depth Z1) ---
+    #
+    # The forward model gives: S(kx,ky) = F(kx,ky) · exp(−j·kz·z₁)
+    # Inverting requires: F = S · exp(+j·kz·z₁)   ← positive sign
+    #
+    # Using exp(−j·kz·z₁) (forward propagation) does NOT focus the image;
+    # it propagates the field further away from the aperture.  This is the
+    # single most common sign error in SAR/holographic reconstruction code.
+    H = np.where(propagating, np.exp(+1j * kz * focus_depth), 0.0)
 
     # --- Step 4: Apply filter and IFFT back to spatial domain ---
     f_image = fftshift(ifft2(ifftshift(S * H, axes=(0, 1)), axes=(0, 1)), axes=(0, 1))
