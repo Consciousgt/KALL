@@ -99,7 +99,25 @@ mmwave-imaging/
 
 ---
 
-## Quickstart
+## KALL // Top Security Defense Web Portal
+
+The entire physics reconstruction pipeline and deep-learning threat detector are wrapped into **KALL** — a classified aerospace & defense command portal featuring real-time walk-through standoff screening, an interactive 3-D holographic voxel visualizer, depth-slice scrubbing, and automated cryptographic incident dossiers.
+
+### Launch KALL Web Portal
+
+```bash
+# Option A: One-command launcher (automatically launches browser at http://localhost:8080)
+python run_kall.py
+
+# Option B: Windows desktop double-click launcher
+run_kall.bat
+```
+
+Open `http://localhost:8080` to access the classified operator console.
+
+---
+
+## Quickstart (CLI)
 
 ### 1. Install dependencies
 
