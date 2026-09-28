@@ -159,7 +159,7 @@ def train_detector(
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer, mode='min', patience=5, factor=0.5, verbose=False,
+        optimizer, mode='min', patience=5, factor=0.5,
     )
 
     history = {"train_loss": [], "val_loss": [], "val_acc": []}
@@ -309,7 +309,8 @@ def evaluate_detector(
         "y_prob": y_prob,
     }
 
-else:
+
+if not _TORCH_AVAILABLE:
     # Stubs for environments without PyTorch
     class ConvDetector:  # type: ignore[no-redef]
         def __init__(self, *a, **kw):
@@ -320,3 +321,4 @@ else:
 
     def evaluate_detector(*a, **kw):  # type: ignore[misc]
         raise ImportError("PyTorch is required.")
+

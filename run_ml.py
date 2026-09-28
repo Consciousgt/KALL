@@ -52,7 +52,7 @@ from ml.dataset import generate_dataset, MmwaveDataset, DATASET_CONFIG
 from ml.detector import ConvDetector, train_detector, evaluate_detector
 
 print("=" * 60)
-print("mmwave-imaging — CNN Detector Training")
+print("mmwave-imaging - CNN Detector Training")
 print("=" * 60)
 print(f"  Dataset size: {args.samples} samples")
 print(f"  Epochs:       {args.epochs}")
