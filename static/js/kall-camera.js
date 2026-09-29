@@ -166,9 +166,19 @@ class TacticalCameraAR {
     ctx.arc(px, py - 120, 24, 0, 2 * Math.PI);
     ctx.fill(); ctx.stroke();
 
-    // Torso / Outer Jacket
+    // Torso / Outer Jacket — use manual rounded rect for cross-browser support
     ctx.beginPath();
-    ctx.roundRect(px - 50, py - 90, 100, 110, [10, 10, 4, 4]);
+    const rx = px - 50, ry = py - 90, rw = 100, rh = 110, rr = 10;
+    ctx.moveTo(rx + rr, ry);
+    ctx.lineTo(rx + rw - rr, ry);
+    ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + rr);
+    ctx.lineTo(rx + rw, ry + rh - 4);
+    ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - 4, ry + rh);
+    ctx.lineTo(rx + 4, ry + rh);
+    ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - 4);
+    ctx.lineTo(rx, ry + rr);
+    ctx.quadraticCurveTo(rx, ry, rx + rr, ry);
+    ctx.closePath();
     ctx.fill(); ctx.stroke();
 
     // Legs
