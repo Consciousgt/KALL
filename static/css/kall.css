@@ -64,8 +64,13 @@ html, body {
   background: var(--color-cyan);
 }
 
-/* CRT Scanlines Overlay (Toggleable) */
+/* Scanlines disabled by default for clean visual clarity */
 .scanlines-overlay {
+  display: none;
+}
+
+body.with-scanlines .scanlines-overlay {
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -83,52 +88,23 @@ html, body {
     rgba(0, 0, 255, 0.03)
   );
   background-size: 100% 3px, 6px 100%;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
-body.no-scanlines .scanlines-overlay {
-  display: none;
-}
-
-/* Grid Cyber Background */
-.cyber-grid-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  background-image: 
-    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-/* Top Secret Classification Banner */
-.classification-banner {
-  background: #1a1100;
-  color: #ffb700;
-  border-bottom: 1px solid rgba(255, 183, 0, 0.5);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-align: center;
-  padding: 4px 12px;
+/* System Footer Bar */
+.system-footer-bar {
+  background: rgba(11, 17, 28, 0.95);
+  border-top: 1px solid var(--border-subtle);
+  padding: 8px 24px;
+  font-size: 10px;
+  color: var(--text-muted);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  text-transform: uppercase;
-}
-
-.classification-banner.bottom {
-  top: auto;
-  bottom: 0;
-  border-bottom: none;
-  border-top: 1px solid rgba(255, 183, 0, 0.5);
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  letter-spacing: 0.5px;
 }
 
 .banner-pulse {
@@ -225,20 +201,14 @@ body.no-scanlines .scanlines-overlay {
 }
 
 .defcon-badge {
-  background: #3d0e14;
-  color: #ff4b60;
-  border: 1px solid #ff2a4b;
-  padding: 2px 8px;
-  border-radius: 3px;
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--color-cyan);
+  border: 1px solid var(--color-cyan);
+  padding: 3px 10px;
+  border-radius: 4px;
   font-weight: 800;
+  font-size: 11px;
   letter-spacing: 1px;
-  animation: pulse-border 2s infinite;
-}
-
-@keyframes pulse-border {
-  0% { box-shadow: 0 0 4px rgba(255, 42, 75, 0.4); }
-  50% { box-shadow: 0 0 12px rgba(255, 42, 75, 0.8); }
-  100% { box-shadow: 0 0 4px rgba(255, 42, 75, 0.4); }
 }
 
 .btn-tactical-icon {

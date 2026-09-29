@@ -38,9 +38,11 @@ class HolographicVolumeViewer {
   resize() {
     if (!this.canvas) return;
     const rect = this.canvas.parentElement.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
     const dpr = window.devicePixelRatio || 1;
-    this.canvas.width = rect.width * dpr;
-    this.canvas.height = rect.height * dpr;
+    this.canvas.width = Math.floor(rect.width * dpr);
+    this.canvas.height = Math.floor(rect.height * dpr);
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.scale(dpr, dpr);
     this.width = rect.width;
     this.height = rect.height;

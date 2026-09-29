@@ -136,10 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. Backend Detection Probe (GitHub Pages vs Local Server)
   async function probeBackend() {
     try {
-      const resp = await fetch("/api/status", { cache: "no-store" });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1200);
+      const resp = await fetch("/api/status", { cache: "no-store", signal: controller.signal });
+      clearTimeout(timeoutId);
       if (resp.ok) {
         backendAvailable = true;
-        backendStatusText.textContent = "LOCAL DEFENSE SERVER [CONNECTED]";
+        backendStatusText.textContent = "AI PHYSICS ENGINE [CONNECTED]";
         backendStatusText.style.color = "var(--color-green)";
         return;
       }
@@ -147,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Backend not running (GitHub Pages static host)
     }
     backendAvailable = false;
-    backendStatusText.textContent = "GITHUB PAGES CLIENT ENGINE [ACTIVE]";
+    backendStatusText.textContent = "STANDALONE CLIENT ENGINE [ACTIVE]";
     backendStatusText.style.color = "var(--color-cyan)";
   }
 
@@ -248,21 +251,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (threat.is_threat) {
       verdictBox.className = "threat-verdict-box threat-active";
       verdictBadge.className = "verdict-status-badge verdict-threat-badge";
-      verdictBadge.textContent = "CRITICAL THREAT DETECTED";
+      verdictBadge.textContent = "THREAT DETECTED";
       verdictCategory.textContent = threat.threat_category;
       gaugeFill.className = "gauge-fill fill-red";
-      defconBadge.textContent = "DEFCON 1";
-      defconBadge.style.background = "#ff2a4b";
-      defconBadge.style.color = "#ffffff";
+      defconBadge.textContent = "ALERT";
+      defconBadge.style.background = "rgba(255, 42, 75, 0.2)";
+      defconBadge.style.borderColor = "var(--color-red)";
+      defconBadge.style.color = "var(--color-red)";
     } else {
       verdictBox.className = "threat-verdict-box threat-clear";
       verdictBadge.className = "verdict-status-badge verdict-clear-badge";
-      verdictBadge.textContent = "STATUS: ALL CLEAR / AUTHORIZED";
+      verdictBadge.textContent = "ALL CLEAR / AUTHORIZED";
       verdictCategory.textContent = threat.threat_category;
       gaugeFill.className = "gauge-fill fill-green";
-      defconBadge.textContent = "DEFCON 4";
-      defconBadge.style.background = "#00ff88";
-      defconBadge.style.color = "#000000";
+      defconBadge.textContent = "CLEAR";
+      defconBadge.style.background = "rgba(0, 255, 136, 0.15)";
+      defconBadge.style.borderColor = "var(--color-green)";
+      defconBadge.style.color = "var(--color-green)";
     }
 
     // 3-D Holographic Viewer
@@ -392,8 +397,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnScanlines.addEventListener("click", () => {
     audio.playClick();
-    document.body.classList.toggle("no-scanlines");
-    btnScanlines.classList.toggle("active", !document.body.classList.contains("no-scanlines"));
+    const hasScanlines = document.body.classList.toggle("with-scanlines");
+    btnScanlines.classList.toggle("active", hasScanlines);
+    btnScanlines.textContent = hasScanlines ? "SCANLINES: ON" : "SCANLINES: OFF";
   });
 
   // 9. Mobile & CCTV AR Camera Controls

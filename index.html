@@ -11,52 +11,45 @@
   <div class="scanlines-overlay"></div>
   <div class="cyber-grid-bg"></div>
 
-  <!-- TOP SECRET Classification Header Banner -->
-  <header class="classification-banner">
-    <div><span class="banner-pulse"></span>TOP SECRET // SPECIAL ACCESS PROGRAM: KALL-SIGINT // ORCON // NOFORN</div>
-    <div>DIRECTIVE: DOD-DIR 5200.01-M // AUTONOMOUS CONCEALED WEAPON INTERCEPTION</div>
-    <div>REL TO USA, FVEY</div>
-  </header>
-
-  <!-- Main System Header -->
-  <div class="kall-header">
+  <!-- Top System Header -->
+  <header class="kall-header">
     <div class="brand-section">
       <div class="kall-logo-badge">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
           <circle cx="12" cy="12" r="10"/>
           <path d="M12 2v20M2 12h20"/>
-          <circle cx="12" cy="12" r="4" stroke="#ff2a4b"/>
+          <circle cx="12" cy="12" r="4" stroke="#00ff88"/>
         </svg>
         <div>
           <div class="kall-logo-text">KALL</div>
-          <div class="kall-subhead">KINETIC APERTURE LOCALIZATION &amp; LETHALITY SCREENING</div>
+          <div class="kall-subhead">KINETIC APERTURE LOCALIZATION &amp; DETECTION SYSTEM</div>
         </div>
       </div>
       <div class="meta-pill">
-        <span class="meta-label">CLEARANCE:</span>
-        <span class="meta-val" style="color:var(--color-amber);">TS/SCI-TK // OP-7749</span>
+        <span class="meta-label">SYSTEM:</span>
+        <span class="meta-val" style="color:var(--color-cyan);">STANDOFF 3-D HOLOGRAPHY</span>
       </div>
-      <div class="defcon-badge" id="defcon-badge">DEFCON 2</div>
+      <div class="defcon-badge" id="defcon-badge">MONITORING</div>
       <div class="meta-pill" id="backend-status-pill">
-        <span class="meta-label">CORE ENGINE:</span>
-        <span class="meta-val" id="backend-status-text" style="color:var(--color-cyan);">PROBING...</span>
+        <span class="meta-label">ENGINE:</span>
+        <span class="meta-val" id="backend-status-text" style="color:var(--color-cyan);">INITIALIZING...</span>
       </div>
     </div>
 
     <div class="header-meta">
       <div class="meta-pill">
-        <span class="meta-label">LO LOCK:</span>
+        <span class="meta-label">RADAR BAND:</span>
         <span class="meta-val" style="color:var(--color-green);">27.0–33.0 GHz [ACTIVE]</span>
       </div>
       <div class="meta-pill">
-        <span class="meta-label">TIME:</span>
-        <span class="meta-val" id="zulu-clock">00:00:00 ZULU</span>
+        <span class="meta-label">UTC:</span>
+        <span class="meta-val" id="zulu-clock">00:00:00 UTC</span>
         <span class="meta-val" id="local-clock" style="color:var(--text-dim); margin-left:6px;">00:00:00 LOC</span>
       </div>
-      <button class="btn-tactical-icon" id="btn-mute-toggle" title="Toggle Tactical Audio Feedback">AUDIO: ACTIVE</button>
-      <button class="btn-tactical-icon active" id="btn-scanlines-toggle" title="Toggle CRT Scanline Shader">SCANLINES: ON</button>
+      <button class="btn-tactical-icon" id="btn-mute-toggle" title="Toggle Audio Feedback">AUDIO: ACTIVE</button>
+      <button class="btn-tactical-icon" id="btn-scanlines-toggle" title="Toggle Scanline Effect">SCANLINES: OFF</button>
     </div>
-  </div>
+  </header>
 
   <!-- Primary Navigation Bar (Connects All Modules) -->
   <nav class="kall-nav-bar">
@@ -596,11 +589,10 @@
   <!-- Dossier Modal Viewer -->
   <div class="dossier-modal" id="modal-dossier">
     <div class="dossier-card">
-      <div class="dossier-watermark">TOP SECRET</div>
-      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ffb700; padding-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--color-cyan); padding-bottom:10px;">
         <div>
-          <h2 style="color:#ffb700; font-size:16px; letter-spacing:2px;">KALL // FORENSIC INCIDENT DOSSIER</h2>
-          <div style="font-size:10px; color:var(--text-muted);">DEFENSE WEAPON INTERCEPTION LOG • TS/SCI-TK</div>
+          <h2 style="color:var(--color-cyan); font-size:16px; letter-spacing:2px;">KALL // THREAT INSPECTION DOSSIER</h2>
+          <div style="font-size:10px; color:var(--text-muted);">APERTURE RADAR RECONSTRUCTION &amp; AI VERIFICATION LOG</div>
         </div>
         <button class="btn-tactical-icon" id="btn-close-dossier">CLOSE [ESC]</button>
       </div>
@@ -633,11 +625,11 @@
     </div>
   </div>
 
-  <!-- Bottom Classification Banner -->
-  <footer class="classification-banner bottom">
-    <div>TOP SECRET // SPECIAL ACCESS PROGRAM: KALL-SIGINT // EYES ONLY</div>
-    <div>FOR AUTHORIZED DEFENSE PERSONNEL ONLY • UNAUTHORIZED DISCLOSURE SUBJECT TO CRIMINAL SANCTIONS</div>
-    <div>TERMINAL: KALL-NODE-ALPHA</div>
+  <!-- Bottom Status Bar -->
+  <footer class="system-footer-bar">
+    <div>KALL // APERTURE HOLOGRAPHIC THREAT DETECTION PLATFORM</div>
+    <div>ACTIVE 27.0–33.0 GHz FREQUENCY SWEEP • CUBIC kz RESAMPLING • REAL-TIME AI INFERENCE</div>
+    <div>STATUS: OPERATIONAL</div>
   </footer>
 
   <!-- Scripts -->

@@ -32,11 +32,13 @@ class TacticalCameraAR {
 
   resize() {
     if (!this.canvas) return;
-    const rect = this.canvas.parentElement.getBoundingClientRect();
-    this.canvas.width = rect.width;
-    this.canvas.height = rect.height;
-    this.width = rect.width;
-    this.height = rect.height;
+    const rect = this.canvas.parentElement ? this.canvas.parentElement.getBoundingClientRect() : null;
+    const w = rect && rect.width > 0 ? rect.width : (this.canvas.width || 640);
+    const h = rect && rect.height > 0 ? rect.height : (this.canvas.height || 480);
+    this.canvas.width = Math.floor(w);
+    this.canvas.height = Math.floor(h);
+    this.width = w;
+    this.height = h;
   }
 
   async startCamera() {
