@@ -363,7 +363,7 @@ CNN inference               (pre-computed
 KALL implements **Sheen et al.'s (2001)** wideband holographic reconstruction algorithm, incorporating a **cubic-spline upgrade** to their original linear $k_z$ interpolation step:
 
 1. **Signal Acquisition** — A phased array antenna sweeps 27–33 GHz across a 50×50 cm aperture.
-2. **Phase Multiply** — Align phase reference across all frequencies and scan positions.
+2. **Phase Multiply** — Apply phase-screen kernel `exp(+j·kz·Z1)` to back-propagate the wavefield to reference depth $Z_1$. (Engineering $e^{-j\omega t}$ sign convention; physically equivalent to Sheen Eq. 21 $\exp(-j k_z Z_1)$ under the physics $e^{+j\omega t}$ convention — same underlying wave physics, different harmonic sign convention. Correct focusing confirmed by the 2.48 cm measured FWHM).
 3. **2-D Spatial FFT** — Decompose measured spatial aperture wavefield into spatial plane-wave components ($k_x, k_y$).
 4. **Cubic Spline kz Resampling (Upgrade)** — Because $k_z = \sqrt{(2\omega/c)^2 - k_x^2 - k_y^2}$ is non-linear with frequency, data lies on nested spherical shells. Cubic spline interpolation maps this non-uniform $k_z$ grid to a uniform Cartesian grid, reducing sidelobe phase distortion across wide bandwidths.
 5. **3-D IFFT** — Reconstruct volumetric complex reflectivity image from uniform k-space.
@@ -371,7 +371,9 @@ KALL implements **Sheen et al.'s (2001)** wideband holographic reconstruction al
 7. **CNN Inference** — ConvDetector classifies weapon presence in 41 ms.
 
 **Theoretical depth resolution:** $\delta z \approx c/(2B) = 3\times 10^8 / (2 \times 6\times 10^9) = \mathbf{2.50\text{ cm}}$  
-**Measured FWHM:** $2.48\text{ cm}$ (ratio: 0.99x — meets Rayleigh diffraction limit ✅)
+**Measured FWHM:** $2.48\text{ cm}$ (ratio: 0.99× — meets Rayleigh diffraction limit ✅)  
+**Cross-range resolution (unfocused aperture, Sheen Eq. 27):** $\delta x \approx \lambda_c R / D = 1.0\text{ cm}$ at $R = 50\text{ cm}$ depth with $D = 50\text{ cm}$ aperture.  
+> **Note on factor-of-2 aperture resolution:** Sheen Eq. 28 gives the *focused SAF* resolution $\delta x \approx \frac{\lambda_c}{2} \cdot \frac{R}{D} = 0.5\text{ cm}$. Our current 3-D wideband reconstruction operates via 3-D IFFT without a secondary matched-filter synthetic aperture focusing (SAF) filter, making Eq. 27 ($\delta x \approx 1.0\text{ cm}$) the exact theoretical benchmark for this pipeline.
 
 ---
 

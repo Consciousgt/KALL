@@ -511,7 +511,7 @@
               <p style="font-size:11px; color:var(--text-muted);">
                 The wavefield is back-propagated to the near-field reference plane Z1 via the exact round-trip dispersion relation:
               </p>
-              <div class="code-block">kz = &radic;( (2&omega;/c)&sup2; - kx&sup2; - ky&sup2; )<br>S_tilde = S(kx, ky, &omega;) &middot; exp(+j &middot; kz &middot; Z1)</div>
+              <div class="code-block">kz = &radic;( (2&omega;/c)&sup2; - kx&sup2; - ky&sup2; )<br>S_tilde = S(kx, ky, &omega;) &middot; exp(+j &middot; kz &middot; Z1)<br><span style="font-size:10px; color:var(--text-dim);">[+j sign: engineering e<sup>&minus;j&omega;t</sup> convention. Sheen Eq.&thinsp;21 uses &minus;j under physics e<sup>+j&omega;t</sup> convention &mdash; same physics, different time-harmonic choice]</span></div>
             </div>
 
             <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:4px; padding:14px; display:flex; flex-direction:column; gap:8px;">
@@ -543,7 +543,7 @@
             </div>
             <div>
               <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">CROSS-RANGE RESOLUTION</div>
-              <div style="font-size:13px; font-weight:bold; color:var(--color-green);">&delta;x &approx; &lambda;R / D = 1.0 cm @ 50cm</div>
+              <div style="font-size:13px; font-weight:bold; color:var(--color-green);">&delta;x &approx; &lambda;R / D = 1.0 cm @ 50cm<div style="font-size:9px; color:var(--text-dim); margin-top:2px;">(unfocused aperture, Sheen Eq.&thinsp;27 &mdash; no SAF focusing applied)</div></div>
             </div>
             <div>
               <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">SYNTHETIC TEST ACCURACY</div>
@@ -663,3 +663,4 @@
   <script src="./static/js/kall-app.js"></script>
 </body>
 </html>
+

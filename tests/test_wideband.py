@@ -187,6 +187,8 @@ class TestRangeResolution:
         assert dz == pytest.approx(expected, rel=1e-6)
 
     def test_theoretical_cross_range_resolution_value(self):
+        """Tests Sheen Eq. 27 unfocused aperture bound: delta_x approx lambda * R / D = 1.0 cm.
+        (Note: Sheen Eq. 28 gives lambda*R/(2D) = 0.5 cm for focused SAF)."""
         dx = theoretical_cross_range_resolution(
             f_center=30e9, range_depth=0.5, aperture=0.5
         )
