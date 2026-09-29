@@ -83,14 +83,30 @@ def _generate_one_sample(
     -------
     image : ndarray, shape (nx, ny), float32, values in [0, 1]
     """
+    # Background torso clutter present in BOTH clean and threat cases (human body reflection)
+    z_torso = rng.uniform(0.45, 0.65)
+    torso_targets = []
+    # 4 to 8 diffuse anatomical scattering points
+    n_clutter = rng.integers(4, 9)
+    for _ in range(n_clutter):
+        cx = rng.uniform(-0.18, 0.18)
+        cy = rng.uniform(-0.18, 0.18)
+        cz = z_torso + rng.uniform(-0.04, 0.04)
+        camp = complex(rng.uniform(0.12, 0.35), rng.uniform(-0.1, 0.1))
+        torso_targets.append(PointTarget(x=cx, y=cy, z=cz, amplitude=camp, label="torso_scatter"))
+
     if label == 1:
         # --- Threat scene: weapon-like rectangular cluster of point scatterers ---
-        z_tgt     = rng.uniform(0.30, 0.70)
-        x_center  = rng.uniform(-0.15, 0.15)
-        y_center  = rng.uniform(-0.15, 0.15)
-        width     = rng.uniform(0.02, 0.06)    # 2–6 cm (narrow weapon)
-        height    = rng.uniform(0.08, 0.16)   # 8–16 cm (long weapon)
-        amplitude = rng.uniform(0.5, 1.5)
+        # 30% chance of lower-reflectivity ceramic / composite blade, 70% metallic
+        is_ceramic = rng.random() < 0.30
+        z_tgt     = rng.uniform(0.32, 0.60)
+        x_center  = rng.uniform(-0.12, 0.12)
+        y_center  = rng.uniform(-0.12, 0.12)
+        width     = rng.uniform(0.025, 0.065)    # 2.5–6.5 cm
+        height    = rng.uniform(0.07, 0.15)      # 7–15 cm
+        
+        # Real reduced reflectivity contrast for non-metallic targets:
+        amplitude = rng.uniform(0.65, 0.90) if is_ceramic else rng.uniform(1.10, 1.60)
 
         scene = make_weapon_scene(
             z=z_tgt,
@@ -103,12 +119,15 @@ def _generate_one_sample(
             amplitude=complex(amplitude),
             rng=rng,
         )
+        # Add body clutter behind or around weapon
+        for pt in torso_targets:
+            scene.add(pt)
     else:
-        # --- Clean scene: empty or tiny low-reflectivity clutter ---
-        scene = make_clean_scene()
+        # --- Clean scene: genuine human body clutter and clothing fold reflections ---
+        scene = Scene(targets=torso_targets, has_concealed_object=False)
 
-    # Per-sample noise
-    noise_std = rng.uniform(0.0, 0.05)
+    # Per-sample noise (receiver noise + clothing texture phase jitter)
+    noise_std = rng.uniform(0.01, 0.06)
     # Build a fresh config with this noise level
     cfg = ApertureConfig(
         f_min=config.f_min,

@@ -142,16 +142,26 @@ document.addEventListener("DOMContentLoaded", () => {
       clearTimeout(timeoutId);
       if (resp.ok) {
         backendAvailable = true;
-        backendStatusText.textContent = "AI PHYSICS ENGINE [CONNECTED]";
+        backendStatusText.textContent = "LIVE PHYSICS ENGINE [CONNECTED]";
         backendStatusText.style.color = "var(--color-green)";
+        const modeBadge = document.getElementById("engine-mode-badge");
+        if (modeBadge) {
+          modeBadge.textContent = "LIVE 3-D IFFT & PYTORCH ENGINE";
+          modeBadge.className = "engine-badge live";
+        }
         return;
       }
     } catch (e) {
       // Backend not running (GitHub Pages static host)
     }
     backendAvailable = false;
-    backendStatusText.textContent = "STANDALONE CLIENT ENGINE [ACTIVE]";
+    backendStatusText.textContent = "ILLUSTRATIVE DEMO MODE [CALIBRATED DATASTORE]";
     backendStatusText.style.color = "var(--color-cyan)";
+    const modeBadge = document.getElementById("engine-mode-badge");
+    if (modeBadge) {
+      modeBadge.textContent = "ILLUSTRATIVE DEMO MODE (OFFLINE CALIBRATED DATASTORE)";
+      modeBadge.className = "engine-badge demo";
+    }
   }
 
   // 4. Scenario Selector Buttons
@@ -270,9 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
       defconBadge.style.color = "var(--color-green)";
     }
 
-    // 3-D Holographic Viewer
+    // 3-D Holographic Viewer with Signature Volumetric Reveal
     const peakObj = threat.is_threat ? { x: coords.x, y: coords.y, z: coords.z } : null;
-    viewer3d.setData(data.voxels_3d, peakObj);
+    viewer3d.triggerScanReveal(data.voxels_3d, peakObj);
     viewer3d.setSliceDepth(coords.z || 50.0);
     sliderSlice.value = coords.z || 50.0;
     labelSliceZ.textContent = `${(coords.z || 50.0).toFixed(1)} cm`;

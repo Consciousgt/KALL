@@ -5,30 +5,29 @@
 */
 
 :root {
-  --bg-deep: #06090f;
-  --bg-panel: #0b111c;
-  --bg-card: #10192a;
-  --bg-card-hover: #152238;
-  --border-subtle: #1c2b45;
-  --border-bright: #29426b;
-  --border-accent: #00f0ff;
+  --bg-deep: #070A0F;
+  --bg-panel: #0D121B;
+  --bg-card: #121824;
+  --bg-card-hover: #182232;
+  --border-subtle: #1C2638;
+  --border-bright: #2A3952;
+  --border-accent: #00D4E5;
 
-  --color-cyan: #00f0ff;
-  --color-cyan-glow: rgba(0, 240, 255, 0.35);
-  --color-green: #00ff88;
-  --color-green-glow: rgba(0, 255, 136, 0.35);
-  --color-amber: #ffb700;
-  --color-amber-glow: rgba(255, 183, 0, 0.35);
-  --color-red: #ff2a4b;
-  --color-red-glow: rgba(255, 42, 75, 0.45);
-  --color-purple: #b055ff;
+  --color-cyan: #00D4E5;
+  --color-cyan-glow: rgba(0, 212, 229, 0.25);
+  --color-green: #10B981;
+  --color-green-glow: rgba(16, 185, 129, 0.25);
+  --color-amber: #F59E0B;
+  --color-amber-glow: rgba(245, 158, 11, 0.25);
+  --color-red: #EF4444;
+  --color-red-glow: rgba(239, 68, 68, 0.35);
 
-  --text-primary: #e6f0fa;
-  --text-muted: #7b94b2;
-  --text-dim: #445973;
+  --text-primary: #F1F5F9;
+  --text-muted: #8494A8;
+  --text-dim: #4B5A70;
 
-  --font-mono: "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
@@ -46,6 +45,7 @@ html, body {
   min-height: 100vh;
   overflow-x: hidden;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Scrollbar */
@@ -201,14 +201,35 @@ body.with-scanlines .scanlines-overlay {
 }
 
 .defcon-badge {
-  background: rgba(0, 240, 255, 0.15);
+  background: rgba(0, 212, 229, 0.12);
   color: var(--color-cyan);
   border: 1px solid var(--color-cyan);
   padding: 3px 10px;
   border-radius: 4px;
-  font-weight: 800;
+  font-weight: 700;
   font-size: 11px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+}
+
+.engine-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.engine-badge.demo {
+  background: rgba(0, 212, 229, 0.08);
+  color: var(--color-cyan);
+  border: 1px solid rgba(0, 212, 229, 0.35);
+}
+
+.engine-badge.live {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-green);
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .btn-tactical-icon {
@@ -274,60 +295,40 @@ body.with-scanlines .scanlines-overlay {
   }
 }
 
-/* Tactical Panel Card */
+/* Precision Instrument Panel Card */
 .tactical-card {
   background: var(--bg-panel);
   border: 1px solid var(--border-subtle);
-  border-radius: 6px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  transition: border-color 0.2s ease;
 }
 
-.tactical-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  border-top: 2px solid var(--color-cyan);
-  border-left: 2px solid var(--color-cyan);
-  pointer-events: none;
-}
-
-.tactical-card::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 12px;
-  height: 12px;
-  border-bottom: 2px solid var(--color-cyan);
-  border-right: 2px solid var(--color-cyan);
-  pointer-events: none;
+.tactical-card:hover {
+  border-color: var(--border-bright);
 }
 
 .card-header {
-  background: rgba(16, 25, 42, 0.8);
+  background: rgba(18, 24, 36, 0.7);
   border-bottom: 1px solid var(--border-subtle);
-  padding: 10px 16px;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .card-title {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 8px;
-  text-transform: uppercase;
 }
 
 .card-badge {

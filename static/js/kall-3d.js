@@ -142,6 +142,22 @@ class HolographicVolumeViewer {
     return { x: projX, y: projY, depth: z2 };
   }
 
+  triggerScanReveal(voxels, peakTarget) {
+    this.setData(voxels, peakTarget);
+    // Signature reveal animation state
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      this.revealProgress = 1.0;
+      this.reticleScale = 1.0;
+      return;
+    }
+
+    this.revealProgress = 0.0;
+    this.reticleScale = 2.4;
+    this.revealStartTime = performance.now();
+    this.revealDuration = 900; // ms
+  }
+
   render() {
     if (!this.ctx) return;
     const ctx = this.ctx;
@@ -149,6 +165,19 @@ class HolographicVolumeViewer {
 
     if (this.autoRotate && !this.isDragging) {
       this.rotY += this.rotationSpeed;
+    }
+
+    // Update signature reveal animation
+    if (this.revealStartTime) {
+      const elapsed = performance.now() - this.revealStartTime;
+      this.revealProgress = Math.min(1.0, elapsed / this.revealDuration);
+      if (this.revealProgress >= 1.0) {
+        this.revealStartTime = null;
+      }
+      this.reticleScale = 1.0 + (1.0 - this.revealProgress) * 1.4;
+    } else if (this.revealProgress === undefined) {
+      this.revealProgress = 1.0;
+      this.reticleScale = 1.0;
     }
 
     // 1. Draw 3-D Bounding Wireframe Box
@@ -160,14 +189,17 @@ class HolographicVolumeViewer {
     // 3. Draw Depth Slice Plane (Moves dynamically along Z)
     this.drawDepthSlicePlane(ctx);
 
-    // 4. Project and Sort Voxels by Depth
+    // 4. Project and Sort Voxels by Depth with Reveal Clipping
     const projectedVoxels = [];
     const thresh = this.threshold;
+    const maxZ = 25.0 + (75.0 - 25.0) * this.revealProgress;
 
     for (let i = 0; i < this.voxels.length; i++) {
       const v = this.voxels[i];
       const intensity = v[3];
       if (intensity < thresh) continue;
+      // Progressive reveal wave along Z axis
+      if (v[2] > maxZ) continue;
 
       const proj = this.projectPoint(v[0], v[1], v[2]);
       if (proj) {
@@ -184,34 +216,33 @@ class HolographicVolumeViewer {
     // Painter's algorithm: draw farthest voxels first
     projectedVoxels.sort((a, b) => b.depth - a.depth);
 
-    // Draw Voxels with Glow
+    // Draw Voxels with Precision Contrast
     for (let i = 0; i < projectedVoxels.length; i++) {
       const pv = projectedVoxels[i];
       const int = pv.intensity;
-      const size = Math.max(2.5, int * 7.5 * this.zoom);
+      const size = Math.max(2.2, int * 6.8 * this.zoom);
 
-      // Color mapping: Low=Cyan, Mid=Amber, High=Crimson
-      let r = 0, g = 240, b = 255;
+      // Color mapping: Restrained Instrument Palette
+      // Cyan/slate for body scattering, Amber for medium targets, Alert Red for weapon peak
+      let r = 0, g = 212, b = 229;
       if (int > 0.65) {
-        // Red / Crimson
-        r = 255; g = Math.floor(42 + (1 - int) * 100); b = 75;
-      } else if (int > 0.4) {
-        // Amber / Gold
-        r = 255; g = 183; b = 0;
+        r = 239; g = 68; b = 68; // Alert Crimson
+      } else if (int > 0.40) {
+        r = 245; g = 158; b = 11; // Amber Warning
       }
 
       ctx.beginPath();
       ctx.arc(pv.x, pv.y, size, 0, 2 * Math.PI);
-      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.35 + int * 0.65})`;
-      ctx.shadowBlur = 10 * int;
-      ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${0.30 + int * 0.70})`;
+      ctx.shadowBlur = (int > 0.65) ? 10 * int : 4 * int;
+      ctx.shadowColor = `rgba(${r}, ${g}, ${b}, 0.7)`;
       ctx.fill();
       ctx.shadowBlur = 0;
     }
 
-    // 5. Draw Peak Target Reticle if active
-    if (this.peakTarget) {
-      this.drawPeakTargetCrosshair(ctx, this.peakTarget);
+    // 5. Draw Peak Target Reticle if active and revealed
+    if (this.peakTarget && this.peakTarget.z <= maxZ) {
+      this.drawPeakTargetCrosshair(ctx, this.peakTarget, this.reticleScale);
     }
   }
 
@@ -318,16 +349,16 @@ class HolographicVolumeViewer {
     }
   }
 
-  drawPeakTargetCrosshair(ctx, target) {
+  drawPeakTargetCrosshair(ctx, target, scale = 1.0) {
     const proj = this.projectPoint(target.x, target.y, target.z);
     if (!proj) return;
 
     ctx.save();
-    const sz = 16;
-    ctx.strokeStyle = "#ff2a4b";
-    ctx.lineWidth = 2;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = "#ff2a4b";
+    const sz = 16 * scale;
+    ctx.strokeStyle = "#EF4444";
+    ctx.lineWidth = 1.8;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = "rgba(239, 68, 68, 0.7)";
 
     // Reticle brackets
     ctx.beginPath();
@@ -341,9 +372,9 @@ class HolographicVolumeViewer {
     ctx.lineTo(proj.x, proj.y + sz + 6);
     ctx.stroke();
 
-    ctx.fillStyle = "#ff2a4b";
-    ctx.font = "bold 10px monospace";
-    ctx.fillText(`THREAT ACQUIRED [${target.x.toFixed(1)}, ${target.y.toFixed(1)}, ${target.z.toFixed(1)}cm]`, proj.x + sz + 8, proj.y + 4);
+    ctx.fillStyle = "#EF4444";
+    ctx.font = "600 11px system-ui, sans-serif";
+    ctx.fillText(`TARGET LOCKED [${target.x.toFixed(1)}, ${target.y.toFixed(1)}, ${target.z.toFixed(1)} cm]`, proj.x + sz + 8, proj.y + 4);
     ctx.restore();
   }
 

@@ -121,14 +121,14 @@ window.KALL_STANDALONE_DATA = {
       timestamp: "2026-09-28 14:18:22 UTC",
       voxels_3d: (function() {
         const v = [];
-        // Thin elongated blade contour at z=38cm
+        // Thin elongated blade contour at z=38cm with lower dielectric reflectivity (~0.70 vs 0.95 for steel)
         for (let y = -6; y <= 6; y += 1.0) {
-          v.push([-5.0, y, 38.0, 0.85]);
-          v.push([-4.0, y * 0.8, 38.0, 0.72]);
+          v.push([-5.0, y, 38.0, 0.72]);
+          v.push([-4.0, y * 0.8, 38.0, 0.58]);
         }
-        // Clutter
-        for (let i = 0; i < 35; i++) {
-          v.push([(Math.random() - 0.5) * 22, (Math.random() - 0.5) * 22, 48 + Math.random() * 6, 0.1]);
+        // Body tissue background clutter
+        for (let i = 0; i < 40; i++) {
+          v.push([(Math.random() - 0.5) * 22, (Math.random() - 0.5) * 22, 48 + Math.random() * 6, 0.14 + Math.random() * 0.12]);
         }
         return v;
       })(),

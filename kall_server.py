@@ -160,13 +160,14 @@ def get_scenario_scene(scenario_id: str, custom_data: Optional[Dict[str, Any]] =
 
     elif scenario_id == "bravo":
         # Threat Bravo: Ceramic / Carbon Tactical Knife (dielectric edge reflector at z=38cm)
+        # Non-metallic composite edge has significantly lower radar cross section (~ -18.2 dBsm vs -12.4 dBsm for metal)
         scene = Scene(has_concealed_object=True)
-        # Blade contour
+        # Blade contour: lower reflectivity coefficient (0.72) modeling carbon/zirconia composite
         ys = np.linspace(-0.07, 0.07, 10)
         for y in ys:
-            scene.add(PointTarget(x=-0.05, y=y, z=0.38, amplitude=0.85 + 0j, label="ceramic_blade"))
-        scene.add(PointTarget(x=-0.06, y=0.0, z=0.38, amplitude=0.95 + 0j, label="hilt"))
-        # Torso background
+            scene.add(PointTarget(x=-0.05, y=y, z=0.38, amplitude=0.72 + 0j, label="ceramic_blade"))
+        scene.add(PointTarget(x=-0.06, y=0.0, z=0.38, amplitude=0.80 + 0j, label="hilt"))
+        # Torso background reflection
         scene.add(PointTarget(x=0.0, y=0.0, z=0.50, amplitude=0.25 + 0j, label="torso_tissue"))
         return scene, "THREAT BRAVO // Ceramic/Composite Tactical Knife"
 
