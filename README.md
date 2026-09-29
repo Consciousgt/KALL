@@ -372,8 +372,7 @@ KALL implements **Sheen et al.'s (2001)** wideband holographic reconstruction al
 
 **Theoretical depth resolution:** $\delta z \approx c/(2B) = 3\times 10^8 / (2 \times 6\times 10^9) = \mathbf{2.50\text{ cm}}$  
 **Measured FWHM:** $2.48\text{ cm}$ (ratio: 0.99× — meets Rayleigh diffraction limit ✅)  
-**Cross-range resolution (unfocused aperture, Sheen Eq. 27):** $\delta x \approx \lambda_c R / D = 1.0\text{ cm}$ at $R = 50\text{ cm}$ depth with $D = 50\text{ cm}$ aperture.  
-> **Note on factor-of-2 aperture resolution:** Sheen Eq. 28 gives the *focused SAF* resolution $\delta x \approx \frac{\lambda_c}{2} \cdot \frac{R}{D} = 0.5\text{ cm}$. Our current 3-D wideband reconstruction operates via 3-D IFFT without a secondary matched-filter synthetic aperture focusing (SAF) filter, making Eq. 27 ($\delta x \approx 1.0\text{ cm}$) the exact theoretical benchmark for this pipeline.
+**Theoretical cross-range resolution (aperture-limited, Sheen Eq. 28):** $\delta x \approx \frac{\lambda_c}{2} \cdot \frac{R}{D} = \mathbf{0.50\text{ cm}}$ at $R = 50\text{ cm}$ depth with $D = 50\text{ cm}$ aperture (where the factor of $1/2$ reflects two-way round-trip spatial wavenumber bandwidth $2k$).
 
 ---
 

@@ -301,20 +301,14 @@ def theoretical_range_resolution(f_min: float, f_max: float) -> float:
 def theoretical_cross_range_resolution(
     f_center: float, range_depth: float, aperture: float
 ) -> float:
-    """Cross-range resolution — unfocused aperture, Sheen Eq. (27): δx ≈ λ R / D.
+    """Aperture-limited cross-range resolution from Sheen et al. (2001) Eq. (28):
+    δx ≈ (λ_c / 2) · (R / D).
 
-    This returns the **unfocused** aperture bound (Sheen Eq. 27):
+    The factor of 1/2 arises from two-way (round-trip) phase accumulation,
+    which doubles spatial bandwidth (2k).
 
-        δx ≈ λ_c · R / D
-
-    This module performs 3-D IFFT reconstruction without matched-filter
-    synthetic aperture focusing (SAF).  Sheen Eq. (28) gives the *focused*
-    (SAF) bound δx ≈ λ R / (2D), which is 2× better, but requires an
-    additional SAF matched-filter step not implemented here.
-
-    With the test configuration (f_c = 30 GHz, R = D = 0.5 m):
-        λ ≈ 1.0 cm  →  δx ≈ 1.0 cm  (this function)
-        Focused SAF would give ≈ 0.5 cm (Eq. 28)
+    For f_c = 30 GHz (λ_c ≈ 1.0 cm), R = 0.5 m, D = 0.5 m:
+        δx ≈ (1.0 cm / 2) · (0.5 / 0.5) = 0.5 cm.
 
     Parameters
     ----------
@@ -326,5 +320,6 @@ def theoretical_cross_range_resolution(
         Aperture size D (m) in one cross-range dimension.
     """
     wavelength = C / f_center
-    return wavelength * range_depth / aperture
+    return (wavelength / 2.0) * (range_depth / aperture)
+
 

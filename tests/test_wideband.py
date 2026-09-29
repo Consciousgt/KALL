@@ -187,14 +187,15 @@ class TestRangeResolution:
         assert dz == pytest.approx(expected, rel=1e-6)
 
     def test_theoretical_cross_range_resolution_value(self):
-        """Tests Sheen Eq. 27 unfocused aperture bound: delta_x approx lambda * R / D = 1.0 cm.
-        (Note: Sheen Eq. 28 gives lambda*R/(2D) = 0.5 cm for focused SAF)."""
+        """Tests Sheen et al. (2001) Eq. 28 aperture-limited bound:
+        delta_x approx (lambda_c / 2) * (R / D) = 0.5 cm."""
         dx = theoretical_cross_range_resolution(
             f_center=30e9, range_depth=0.5, aperture=0.5
         )
         wavelength = C / 30e9
-        expected = wavelength * 0.5 / 0.5
+        expected = (wavelength / 2.0) * (0.5 / 0.5)
         assert dx == pytest.approx(expected, rel=1e-6)
+        assert dx == pytest.approx(0.005, rel=1e-2)  # exactly ~0.50 cm
 
 
 class TestKzResampling:
