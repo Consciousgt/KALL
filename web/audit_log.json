@@ -1,5 +1,404 @@
 [
   {
+    "scan_id": "KALL-SCAN-57748",
+    "timestamp": "2026-09-28 19:15:57 UTC",
+    "subject_id": "SUBJ-UNKNOWN-7748",
+    "scenario": "THREAT CHARLIE // PBIED Shrapnel Belt / Ball Bearing Array",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-III: MASS-CASUALTY PBIED / SHRAPNEL MATRIX",
+    "confidence": 1.0,
+    "peak_rcs_db": 25.0,
+    "peak_coords_cm": [
+      0.0,
+      0.0,
+      51.6
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "9A4DD3567FEE04E2",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-55372",
+    "timestamp": "2026-09-28 19:15:55 UTC",
+    "subject_id": "SUBJ-UNKNOWN-5372",
+    "scenario": "PERMITTED DELTA // Cleared Diplomatic Personnel (No Contraband)",
+    "threat_detected": false,
+    "threat_probability": 0.0,
+    "threat_category": "PERMITTED // VERIFIED ORGANIC BIOMETRIC (CLEAN)",
+    "confidence": 1.0,
+    "peak_rcs_db": -45.7,
+    "peak_coords_cm": [
+      -18.6,
+      -4.3,
+      83.1
+    ],
+    "fwhm_range_res_cm": 16.94,
+    "signature_hash": "AE1959213C1FCA7C",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-46389",
+    "timestamp": "2026-09-28 19:15:46 UTC",
+    "subject_id": "SUBJ-UNKNOWN-6389",
+    "scenario": "THREAT ECHO // Multi-Depth Distributed Standoff (35cm / 50cm / 65cm)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-IV: ANOMALOUS HIGH-REFLECTIVITY CONTRABAND",
+    "confidence": 1.0,
+    "peak_rcs_db": 18.9,
+    "peak_coords_cm": [
+      -2.9,
+      5.7,
+      49.2
+    ],
+    "fwhm_range_res_cm": 4.84,
+    "signature_hash": "61699CF5BF6C8A08",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-37327",
+    "timestamp": "2026-09-28 19:15:37 UTC",
+    "subject_id": "SUBJ-UNKNOWN-7327",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "653B363831B046CB",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-18767",
+    "timestamp": "2026-09-28 19:15:18 UTC",
+    "subject_id": "SUBJ-UNKNOWN-8767",
+    "scenario": "PERMITTED DELTA // Cleared Diplomatic Personnel (No Contraband)",
+    "threat_detected": false,
+    "threat_probability": 0.0,
+    "threat_category": "PERMITTED // VERIFIED ORGANIC BIOMETRIC (CLEAN)",
+    "confidence": 1.0,
+    "peak_rcs_db": -46.1,
+    "peak_coords_cm": [
+      -8.6,
+      1.4,
+      92.8
+    ],
+    "fwhm_range_res_cm": 50.83,
+    "signature_hash": "167C623C93E8AD85",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-04920",
+    "timestamp": "2026-09-28 19:15:04 UTC",
+    "subject_id": "SUBJ-UNKNOWN-4920",
+    "scenario": "THREAT CHARLIE // PBIED Shrapnel Belt / Ball Bearing Array",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-III: MASS-CASUALTY PBIED / SHRAPNEL MATRIX",
+    "confidence": 1.0,
+    "peak_rcs_db": 25.0,
+    "peak_coords_cm": [
+      0.0,
+      0.0,
+      51.6
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "EC3925505E336A0E",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-97519",
+    "timestamp": "2026-09-28 19:14:57 UTC",
+    "subject_id": "SUBJ-UNKNOWN-7519",
+    "scenario": "THREAT BRAVO // Ceramic/Composite Tactical Knife",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-II: CERAMIC / COMPOSITE EDGED WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 20.1,
+    "peak_coords_cm": [
+      -5.7,
+      0.0,
+      37.1
+    ],
+    "fwhm_range_res_cm": 4.84,
+    "signature_hash": "EBD9EB2A6BE9A880",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-85209",
+    "timestamp": "2026-09-28 19:14:45 UTC",
+    "subject_id": "SUBJ-UNKNOWN-5209",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "A4C99344AD49F214",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-57340",
+    "timestamp": "2026-09-28 18:55:57 UTC",
+    "subject_id": "SUBJ-UNKNOWN-7340",
+    "scenario": "THREAT BRAVO // Ceramic/Composite Tactical Knife",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-II: CERAMIC / COMPOSITE EDGED WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 20.1,
+    "peak_coords_cm": [
+      -5.7,
+      0.0,
+      37.1
+    ],
+    "fwhm_range_res_cm": 4.84,
+    "signature_hash": "7E23E0C01548A213",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-41958",
+    "timestamp": "2026-09-28 18:55:41 UTC",
+    "subject_id": "SUBJ-UNKNOWN-1958",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "88A4E69959CFACE8",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-24983",
+    "timestamp": "2026-09-28 18:55:24 UTC",
+    "subject_id": "SUBJ-UNKNOWN-4983",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "24C04DF199175F1F",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-22123",
+    "timestamp": "2026-09-28 18:55:22 UTC",
+    "subject_id": "SUBJ-UNKNOWN-2123",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "645C4E3D883CEFE3",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-21119",
+    "timestamp": "2026-09-28 15:05:21 UTC",
+    "subject_id": "SUBJ-UNKNOWN-1119",
+    "scenario": "THREAT CHARLIE // PBIED Shrapnel Belt / Ball Bearing Array",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-III: MASS-CASUALTY PBIED / SHRAPNEL MATRIX",
+    "confidence": 1.0,
+    "peak_rcs_db": 33.3,
+    "peak_coords_cm": [
+      0.0,
+      0.0,
+      52.1
+    ],
+    "fwhm_range_res_cm": 2.46,
+    "signature_hash": "9F4073ACB71FEAF4",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-17390",
+    "timestamp": "2026-09-28 15:05:17 UTC",
+    "subject_id": "SUBJ-UNKNOWN-7390",
+    "scenario": "THREAT BRAVO // Ceramic/Composite Tactical Knife",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-II: CERAMIC / COMPOSITE EDGED WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 25.5,
+    "peak_coords_cm": [
+      -4.9,
+      20.5,
+      39.8
+    ],
+    "fwhm_range_res_cm": 2.46,
+    "signature_hash": "7ACC8C1557E0C385",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-75465",
+    "timestamp": "2026-09-28 15:04:35 UTC",
+    "subject_id": "SUBJ-UNKNOWN-5465",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 32.7,
+    "peak_coords_cm": [
+      5.9,
+      -22.5,
+      49.6
+    ],
+    "fwhm_range_res_cm": 4.92,
+    "signature_hash": "1327CCE557BDA756",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-60250",
+    "timestamp": "2026-09-28 15:04:20 UTC",
+    "subject_id": "SUBJ-UNKNOWN-0250",
+    "scenario": "THREAT ECHO // Multi-Depth Distributed Standoff (35cm / 50cm / 65cm)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-IV: ANOMALOUS HIGH-REFLECTIVITY CONTRABAND",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.1,
+    "peak_coords_cm": [
+      7.8,
+      -2.0,
+      64.3
+    ],
+    "fwhm_range_res_cm": 2.46,
+    "signature_hash": "16749754C69912F8",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-83327",
+    "timestamp": "2026-09-28 15:03:03 UTC",
+    "subject_id": "SUBJ-UNKNOWN-3327",
+    "scenario": "PERMITTED DELTA // Cleared Diplomatic Personnel (No Contraband)",
+    "threat_detected": false,
+    "threat_probability": 0.0,
+    "threat_category": "PERMITTED // VERIFIED ORGANIC BIOMETRIC (CLEAN)",
+    "confidence": 1.0,
+    "peak_rcs_db": -47.6,
+    "peak_coords_cm": [
+      -17.6,
+      -8.8,
+      42.2
+    ],
+    "fwhm_range_res_cm": 125.42,
+    "signature_hash": "2EF443D9027DBD8C",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-63956",
+    "timestamp": "2026-09-28 15:02:43 UTC",
+    "subject_id": "SUBJ-UNKNOWN-3956",
+    "scenario": "THREAT CHARLIE // PBIED Shrapnel Belt / Ball Bearing Array",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-III: MASS-CASUALTY PBIED / SHRAPNEL MATRIX",
+    "confidence": 1.0,
+    "peak_rcs_db": 33.3,
+    "peak_coords_cm": [
+      0.0,
+      0.0,
+      52.1
+    ],
+    "fwhm_range_res_cm": 2.46,
+    "signature_hash": "060F513A37F3D183",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-60232",
+    "timestamp": "2026-09-28 15:02:40 UTC",
+    "subject_id": "SUBJ-UNKNOWN-0232",
+    "scenario": "THREAT BRAVO // Ceramic/Composite Tactical Knife",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-II: CERAMIC / COMPOSITE EDGED WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 25.5,
+    "peak_coords_cm": [
+      -4.9,
+      20.5,
+      39.8
+    ],
+    "fwhm_range_res_cm": 2.46,
+    "signature_hash": "4F5805E2CE04161D",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-28125",
+    "timestamp": "2026-09-28 15:02:08 UTC",
+    "subject_id": "SUBJ-UNKNOWN-8125",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "A059540A44B91E3E",
+    "operator_id": "OP-7749"
+  },
+  {
+    "scan_id": "KALL-SCAN-59303",
+    "timestamp": "2026-09-28 14:59:19 UTC",
+    "subject_id": "SUBJ-UNKNOWN-9303",
+    "scenario": "THREAT ALPHA // Concealed Metallic Firearm (9mm Glock-19)",
+    "threat_detected": true,
+    "threat_probability": 1.0,
+    "threat_category": "CLASS-I: CONCEALED METALLIC WEAPON",
+    "confidence": 1.0,
+    "peak_rcs_db": 28.6,
+    "peak_coords_cm": [
+      2.9,
+      -4.3,
+      44.4
+    ],
+    "fwhm_range_res_cm": 2.42,
+    "signature_hash": "222B8B53ECF7B07A",
+    "operator_id": "OP-7749"
+  },
+  {
     "scan_id": "KALL-SCAN-84259",
     "timestamp": "2026-09-28 14:49:44 UTC",
     "subject_id": "SUBJ-UNKNOWN-4259",

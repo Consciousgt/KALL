@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KALL // Millimeter-Wave Holographic Defense & Threat Detection</title>
+  <link rel="stylesheet" href="./static/css/kall.css">
+</head>
+<body>
+  <!-- CRT Scanlines and Cyber Grid (toggleable) -->
+  <div class="scanlines-overlay"></div>
+  <div class="cyber-grid-bg"></div>
+
+  <!-- TOP SECRET Classification Header Banner -->
+  <header class="classification-banner">
+    <div><span class="banner-pulse"></span>TOP SECRET // SPECIAL ACCESS PROGRAM: KALL-SIGINT // ORCON // NOFORN</div>
+    <div>DIRECTIVE: DOD-DIR 5200.01-M // AUTONOMOUS CONCEALED WEAPON INTERCEPTION</div>
+    <div>REL TO USA, FVEY</div>
+  </header>
+
+  <!-- Main System Header -->
+  <div class="kall-header">
+    <div class="brand-section">
+      <div class="kall-logo-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2v20M2 12h20"/>
+          <circle cx="12" cy="12" r="4" stroke="#ff2a4b"/>
+        </svg>
+        <div>
+          <div class="kall-logo-text">KALL</div>
+          <div class="kall-subhead">KINETIC APERTURE LOCALIZATION &amp; LETHALITY SCREENING</div>
+        </div>
+      </div>
+      <div class="meta-pill">
+        <span class="meta-label">CLEARANCE:</span>
+        <span class="meta-val" style="color:var(--color-amber);">TS/SCI-TK // OP-7749</span>
+      </div>
+      <div class="defcon-badge" id="defcon-badge">DEFCON 2</div>
+      <div class="meta-pill" id="backend-status-pill">
+        <span class="meta-label">CORE ENGINE:</span>
+        <span class="meta-val" id="backend-status-text" style="color:var(--color-cyan);">PROBING...</span>
+      </div>
+    </div>
+
+    <div class="header-meta">
+      <div class="meta-pill">
+        <span class="meta-label">LO LOCK:</span>
+        <span class="meta-val" style="color:var(--color-green);">27.0–33.0 GHz [ACTIVE]</span>
+      </div>
+      <div class="meta-pill">
+        <span class="meta-label">TIME:</span>
+        <span class="meta-val" id="zulu-clock">00:00:00 ZULU</span>
+        <span class="meta-val" id="local-clock" style="color:var(--text-dim); margin-left:6px;">00:00:00 LOC</span>
+      </div>
+      <button class="btn-tactical-icon" id="btn-mute-toggle" title="Toggle Tactical Audio Feedback">AUDIO: ACTIVE</button>
+      <button class="btn-tactical-icon active" id="btn-scanlines-toggle" title="Toggle CRT Scanline Shader">SCANLINES: ON</button>
+    </div>
+  </div>
+
+  <!-- Primary Navigation Bar (Connects All Modules) -->
+  <nav class="kall-nav-bar">
+    <button class="nav-tab-btn active" data-tab="portal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg>
+      TACTICAL PORTAL SCANNER
+      <span class="tab-badge">CORE 3D</span>
+    </button>
+
+    <button class="nav-tab-btn" data-tab="camera">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      MOBILE &amp; CCTV AR FUSION
+      <span class="tab-badge" style="color:var(--color-amber);">BODY-CAM HUD</span>
+    </button>
+
+    <button class="nav-tab-btn" data-tab="cctv">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+      STANDOFF PERIMETER RADAR
+      <span class="tab-badge">3–8m TRACKER</span>
+    </button>
+
+    <button class="nav-tab-btn" data-tab="physics">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      PHYSICS &amp; ALGORITHM INVERSION
+      <span class="tab-badge">SHEEN ET AL. 2001</span>
+    </button>
+
+    <button class="nav-tab-btn" data-tab="dossier">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      CLASSIFIED DOSSIER &amp; AUDIT
+      <span class="tab-badge">SHA-256</span>
+    </button>
+  </nav>
+
+  <!-- Main Workspace Deck -->
+  <main class="kall-workspace">
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB VIEW 1: TACTICAL PORTAL SCANNER (CORE)
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-content-view active" id="view-portal">
+      <div class="grid-3col">
+
+        <!-- Column 1: Threat Surveillance & Portal Ingestion -->
+        <section class="tactical-card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              SURVEILLANCE INGESTION
+            </span>
+            <span class="card-badge">INPUT TELEMETRY</span>
+          </div>
+          <div class="card-body">
+            
+            <!-- Standoff Scanning Portal Frame -->
+            <div class="portal-booth-view">
+              <div class="scanner-beam-line"></div>
+              <svg class="portal-frame-svg" viewBox="0 0 300 140" fill="none">
+                <rect x="70" y="10" width="160" height="120" stroke="#1c2b45" stroke-width="3" rx="4" />
+                <rect x="80" y="18" width="140" height="106" stroke="#00f0ff" stroke-width="1" stroke-dasharray="4 4" opacity="0.4" />
+                <path d="M150 35 a10 10 0 1 0 0.1 0 Z M135 60 c0-10 30-10 30 0 v35 h-30 Z M138 95 v30 M162 95 v30" stroke="#445973" stroke-width="2" stroke-linecap="round" fill="rgba(68, 89, 115, 0.15)"/>
+                <circle cx="150" cy="70" r="16" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1" stroke-dasharray="2 2"/>
+                <circle cx="95" cy="40" r="2" fill="#00ff88"/>
+                <circle cx="205" cy="40" r="2" fill="#00ff88"/>
+                <circle cx="95" cy="100" r="2" fill="#00ff88"/>
+                <circle cx="205" cy="100" r="2" fill="#00ff88"/>
+              </svg>
+              <div style="position:absolute; bottom:6px; font-size:9px; color:var(--color-cyan); letter-spacing:1px; background:rgba(6,9,15,0.8); padding:1px 6px; border-radius:2px;">
+                MONOSTATIC PHASED APERTURE: 50×50 cm
+              </div>
+            </div>
+
+            <!-- Scenario Selection List -->
+            <div style="font-size:10px; font-weight:800; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;">
+              SELECT OPERATIONAL SCENARIO
+            </div>
+            <div class="scenario-list">
+              <button class="scenario-btn active" data-scenario="alpha">
+                <div class="scenario-top-line">
+                  <span class="scenario-title">THREAT-ALPHA // 9mm Glock Firearm</span>
+                  <span class="scenario-tag tag-critical">CRITICAL</span>
+                </div>
+                <div class="scenario-desc">Concealed metallic handgun at depth z = 45 cm.</div>
+              </button>
+
+              <button class="scenario-btn" data-scenario="bravo">
+                <div class="scenario-top-line">
+                  <span class="scenario-title">THREAT-BRAVO // Ceramic Tactical Blade</span>
+                  <span class="scenario-tag tag-high">HIGH</span>
+                </div>
+                <div class="scenario-desc">Dielectric composite edge weapon at depth z = 38 cm.</div>
+              </button>
+
+              <button class="scenario-btn" data-scenario="charlie">
+                <div class="scenario-top-line">
+                  <span class="scenario-title">THREAT-CHARLIE // PBIED Shrapnel Belt</span>
+                  <span class="scenario-tag tag-critical">SEVERE</span>
+                </div>
+                <div class="scenario-desc">High-density ball-bearing explosive matrix at z = 52 cm.</div>
+              </button>
+
+              <button class="scenario-btn" data-scenario="delta">
+                <div class="scenario-top-line">
+                  <span class="scenario-title">PERMITTED-DELTA // Clean Diplomat</span>
+                  <span class="scenario-tag tag-clear">AUTHORIZED</span>
+                </div>
+                <div class="scenario-desc">Cleared VIP personnel; natural tissue and clothing only.</div>
+              </button>
+
+              <button class="scenario-btn" data-scenario="echo">
+                <div class="scenario-top-line">
+                  <span class="scenario-title">STANDOFF-ECHO // Multi-Depth Target</span>
+                  <span class="scenario-tag tag-standoff">STANDOFF</span>
+                </div>
+                <div class="scenario-desc">3 distinct targets distributed at 35, 50, and 65 cm.</div>
+              </button>
+            </div>
+
+            <!-- Scan Mode Options -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-card); padding:8px 12px; border-radius:4px; border:1px solid var(--border-subtle);">
+              <span style="font-size:10px; color:var(--text-muted); font-weight:700;">RESOLUTION MODE:</span>
+              <div style="display:flex; gap:12px; font-size:10px;">
+                <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+                  <input type="radio" name="scan-mode" value="fast" checked>
+                  <span>RAPID (~0.3s)</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:4px; cursor:pointer;">
+                  <input type="radio" name="scan-mode" value="precision">
+                  <span>PRECISION (~1.5s)</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Big Scan Trigger Button -->
+            <button class="btn-scan-trigger" id="btn-scan-trigger">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span>INITIATE ACTIVE HOLOGRAPHIC SCAN</span>
+            </button>
+
+            <!-- RF Hardware Mini Telemetry -->
+            <div class="telemetry-grid">
+              <div class="telem-cell">
+                <span class="telem-label">SWEEP BANDWIDTH</span>
+                <span class="telem-val">6.0 GHz (27–33 GHz)</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">NYQUIST CRITERION</span>
+                <span class="telem-val" style="color:var(--color-green);">Δx ≤ 4.54 mm [OK]</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">INTERPOLATION</span>
+                <span class="telem-val">Cubic Spline (kz)</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">ARRAY TEMP</span>
+                <span class="telem-val">23.4 °C [NOMINAL]</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Column 2: 3-D Holographic Volumetric Viewer -->
+        <section class="tactical-card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              3-D HOLOGRAPHIC RECONSTRUCTION
+            </span>
+            <span class="card-badge" style="color:var(--color-cyan);">SHEEN ET AL. 2001 (EQ. 23)</span>
+          </div>
+          <div class="card-body" style="padding:0; position:relative;">
+            
+            <div class="canvas-3d-wrapper">
+              <canvas id="canvas-3d"></canvas>
+              
+              <div class="hologram-hud-overlay">
+                <div class="hud-tag">ALGORITHM: 3-D WIDEBAND IFFT + CUBIC kz RESAMPLING</div>
+                <div class="hud-tag">VOXEL CLOUD: <span id="voxel-count-display">ACTIVE</span></div>
+                <div class="hud-tag">VOLUME BOUNDS: [-20, 20] cm × [-20, 20] cm × [25, 75] cm</div>
+              </div>
+
+              <div class="hologram-controls-bar">
+                <div class="controls-group">
+                  <span class="control-label">DEPTH SLICE Z:</span>
+                  <input type="range" id="slider-slice-z" min="25" max="75" step="0.5" value="50">
+                  <span id="label-slice-z" style="font-weight:bold; color:var(--color-amber); min-width:48px;">50.0 cm</span>
+                </div>
+
+                <div class="controls-group">
+                  <span class="control-label">CUTOFF:</span>
+                  <input type="range" id="slider-thresh" min="0.10" max="0.60" step="0.02" value="0.22">
+                  <span id="label-thresh" style="font-weight:bold; color:var(--color-cyan); min-width:32px;">22%</span>
+                </div>
+
+                <div class="controls-group">
+                  <button class="btn-tactical-icon active" id="btn-auto-rotate" title="Toggle Auto-Rotation">AUTO-ROTATE</button>
+                  <button class="btn-tactical-icon" id="btn-reset-view" title="Reset View Orientation">RESET</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Physics Inversion Explainer -->
+            <div style="padding:14px 18px; background:var(--bg-card); border-top:1px solid var(--border-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div style="font-size:10px; color:var(--text-muted);">
+                <strong style="color:var(--text-primary);">INVERSE SCATTERING STEP:</strong>
+                Data on nested spherical shells in k-space is mapped to uniform Cartesian grid via cubic splines before 3-D IFFT, preventing phase distortion.
+              </div>
+              <div style="display:flex; gap:12px;">
+                <span class="meta-pill"><span class="meta-label">SCAN ID:</span> <span id="scan-id-display" class="meta-val">KALL-SCAN-INIT</span></span>
+                <span class="meta-pill"><span class="meta-label">SHA-256:</span> <span id="sig-hash-display" class="meta-val" style="color:var(--color-cyan);">SEC-AUTH</span></span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Column 3: AI Threat Classification & Cross-Section Radar -->
+        <section class="tactical-card col-threat">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              AI DETECTION &amp; RADAR CROSS-SECTION
+            </span>
+            <span class="card-badge" style="color:var(--color-red);">ConvDetector CNN</span>
+          </div>
+          <div class="card-body">
+
+            <!-- Threat Verdict HUD Box -->
+            <div class="threat-verdict-box" id="verdict-box">
+              <div class="verdict-header">
+                <span style="font-size:9px; color:var(--text-dim); letter-spacing:1px;">AI THREAT EVALUATION</span>
+                <span class="verdict-status-badge verdict-threat-badge" id="verdict-status-badge">ANALYZING...</span>
+              </div>
+              <div style="font-size:12px; font-weight:800; color:#ffffff;" id="verdict-category">
+                INITIALIZING NEURAL CLASSIFIER
+              </div>
+
+              <!-- Threat Probability Meter -->
+              <div class="threat-confidence-gauge">
+                <div class="gauge-header">
+                  <span style="color:var(--text-dim);">THREAT PROBABILITY:</span>
+                  <span style="font-weight:bold; color:var(--color-cyan);" id="gauge-threat-percent">0.0%</span>
+                </div>
+                <div class="gauge-track">
+                  <div class="gauge-fill fill-red" id="gauge-threat-fill"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Radar Heatmap (MIP) -->
+            <div class="radar-view-container">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
+                  2-D MAX-INTENSITY PROJECTION (MIP)
+                </span>
+                <div style="display:flex; gap:8px;">
+                  <select id="select-colormap" style="background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-subtle); border-radius:3px; padding:2px 6px; font-size:9px; font-family:var(--font-mono);">
+                    <option value="hot">Thermal Fire</option>
+                    <option value="radar">Radar Green</option>
+                    <option value="cyber">Cyber Cyan</option>
+                    <option value="viridis">Viridis</option>
+                  </select>
+                  <button class="btn-tactical-icon" id="btn-compare-toggle" style="padding:2px 8px; font-size:9px;" title="Compare against Single-Frequency Blur">
+                    MODE: WIDEBAND 3-D (SHARP)
+                  </button>
+                </div>
+              </div>
+
+              <div class="canvas-2d-box">
+                <canvas id="canvas-mip" width="300" height="240"></canvas>
+                <div class="crosshair-layer"></div>
+              </div>
+            </div>
+
+            <!-- Depth Range Profile Plotter -->
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">
+                  1-D RANGE PROFILE &amp; FWHM VERIFICATION
+                </span>
+                <span style="font-size:9px; color:var(--color-amber);">c / (2B) = 2.50 cm</span>
+              </div>
+              <div class="canvas-range-box">
+                <canvas id="canvas-range-profile" width="380" height="140"></canvas>
+              </div>
+            </div>
+
+            <!-- Detailed Telemetry Grid -->
+            <div class="telemetry-grid">
+              <div class="telem-cell">
+                <span class="telem-label">PEAK TARGET ACQUISITION</span>
+                <span class="telem-val" id="telem-coords">[X: 0.0, Y: 0.0, Z: 50.0 cm]</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">PEAK RADAR CROSS SECTION</span>
+                <span class="telem-val" id="telem-rcs">-12.4 dBsm</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">MEASURED RANGE FWHM</span>
+                <span class="telem-val" id="telem-dz" style="color:var(--color-amber);">2.48 cm (0.99x)</span>
+              </div>
+              <div class="telem-cell">
+                <span class="telem-label">EXECUTION LATENCY</span>
+                <span class="telem-val" id="telem-timing">Recon: 0.32s | AI: 44ms</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB VIEW 2: MOBILE & CCTV AR OPTICAL-RADAR FUSION
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-content-view" id="view-camera">
+      <section class="tactical-card">
+        <div class="card-header">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            SECURITY OFFICER BODY-CAM &amp; CCTV OPTICAL-RADAR AR HUD
+          </span>
+          <span class="card-badge" style="color:var(--color-green);">LIVE AR FUSION</span>
+        </div>
+        <div class="card-body">
+
+          <!-- Notice on Physics -->
+          <div style="background:rgba(0, 240, 255, 0.06); border:1px solid rgba(0, 240, 255, 0.3); border-radius:4px; padding:10px 14px; font-size:11px; color:var(--text-muted); line-height:1.5;">
+            <strong style="color:var(--color-cyan);">MULTIMODAL FUSION ARCHITECTURE:</strong> Standard optical cameras (RGB visible light, ~400–700nm) cannot penetrate clothing fabric. This interface pairs optical video streaming (webcam/phone camera) with co-registered millimeter-wave holographic radar scans (27–33 GHz K-band), projecting a see-through thermal/radar threat overlay directly over the suspect's waistband and chest in real time.
+          </div>
+
+          <!-- Video & AR Canvas Viewport -->
+          <div class="ar-camera-container">
+            <video id="ar-video-feed" playsinline muted autoplay></video>
+            <canvas id="ar-canvas-overlay"></canvas>
+
+            <!-- Floating In-HUD Controls -->
+            <div class="ar-floating-controls">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="btn-tactical-icon" id="btn-toggle-cam">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                  START PHYSICAL CAMERA
+                </button>
+                <button class="btn-tactical-icon" id="btn-flip-cam">SWITCH FRONT/REAR</button>
+                <button class="btn-tactical-icon" id="btn-toggle-threat-sim">TOGGLE CONCEALED WEAPON</button>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="btn-tactical-icon" id="btn-cam-snapshot" style="background:#ffb700; color:#000000; font-weight:bold; border-color:#ffb700;">
+                  CAPTURE INCIDENT SNAPSHOT
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone & Body-Cam Deployment Guide -->
+          <div class="telemetry-grid">
+            <div class="telem-cell">
+              <span class="telem-label">MOBILE RADAR MOD SPEC</span>
+              <span class="telem-val">Texas Instruments IWR6843AOP (60–64 GHz, 15×15mm USB-C Clip-On)</span>
+            </div>
+            <div class="telem-cell">
+              <span class="telem-label">OPTICAL REGISTRATION</span>
+              <span class="telem-val">Real-time Homography (Camera Matrix P ↔ Radar Coordinates)</span>
+            </div>
+            <div class="telem-cell">
+              <span class="telem-label">HAPTIC ALERT SYSTEM</span>
+              <span class="telem-val" style="color:var(--color-green);">ENABLED (Smartphone Dual Vibration Pulse)</span>
+            </div>
+            <div class="telem-cell">
+              <span class="telem-label">OPTICAL BULGE RECOGNITION</span>
+              <span class="telem-val">Active (Fabric Asymmetry &amp; Standoff Pose Tracking)</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB VIEW 3: STANDOFF CCTV PERIMETER RADAR TRACKER
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-content-view" id="view-cctv">
+      <section class="tactical-card">
+        <div class="card-header">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            STANDOFF CORRIDOR SURVEILLANCE &amp; MOVING TARGET TRACKER (3–8 METERS)
+          </span>
+          <span class="card-badge" style="color:var(--color-cyan);">AUTOMATED PERIMETER SCAN</span>
+        </div>
+        <div class="card-body">
+
+          <div style="font-size:11px; color:var(--text-muted);">
+            Simulates an overhead PTZ security camera co-located with a millimeter-wave phased radar pod monitoring an approaching corridor. As subjects approach from 8 meters down to 2 meters, the phased radar beam sweeps their body. When a concealed weapon crosses the 5.0-meter perimeter boundary, the system raises an immediate standoff alarm.
+          </div>
+
+          <!-- CCTV Standoff Canvas -->
+          <div class="cctv-tracker-wrapper">
+            <canvas id="canvas-cctv-tracker"></canvas>
+          </div>
+
+          <!-- Controls Bar -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:var(--bg-card); padding:10px 14px; border-radius:4px; border:1px solid var(--border-subtle);">
+            <div style="display:flex; gap:10px;">
+              <button class="btn-tactical-icon" id="btn-cctv-pause">PAUSE / PLAY</button>
+              <button class="btn-tactical-icon" id="btn-cctv-weapon">TOGGLE WEAPON INJECTION</button>
+              <button class="btn-tactical-icon" id="btn-cctv-reset">RESET APPROACHING SUBJECT</button>
+            </div>
+            <div style="font-size:10px; color:var(--color-amber);">
+              PERIMETER ALARM STATUS: <span id="cctv-alarm-text" style="font-weight:bold; color:var(--color-cyan);">ACTIVE MONITORING</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB VIEW 4: PHYSICS & ALGORITHMIC INVERSION
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-content-view" id="view-physics">
+      <section class="tactical-card">
+        <div class="card-header">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            THEORETICAL INVERSE-SCATTERING DERIVATION (SHEEN ET AL. 2001)
+          </span>
+          <span class="card-badge">PHYSICS SPECIFICATION</span>
+        </div>
+        <div class="card-body">
+
+          <div class="theory-card-grid">
+            <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:4px; padding:14px; display:flex; flex-direction:column; gap:8px;">
+              <strong style="color:var(--color-cyan);">STEP 1: 2-D SPATIAL FOURIER DECOMPOSITION</strong>
+              <p style="font-size:11px; color:var(--text-muted);">
+                For each discrete stepped frequency sample &omega;, the 2-D measured aperture wavefield s(x', y', &omega;) is decomposed into spatial plane-wave components via 2-D FFT:
+              </p>
+              <div class="code-block">S(kx, ky, &omega;) = FFT2D[ s(x', y', &omega;) ]</div>
+            </div>
+
+            <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:4px; padding:14px; display:flex; flex-direction:column; gap:8px;">
+              <strong style="color:var(--color-cyan);">STEP 2: COHERENT PHASE BACK-PROPAGATION</strong>
+              <p style="font-size:11px; color:var(--text-muted);">
+                The wavefield is back-propagated to the near-field reference plane Z1 via the exact round-trip dispersion relation:
+              </p>
+              <div class="code-block">kz = &radic;( (2&omega;/c)&sup2; - kx&sup2; - ky&sup2; )<br>S_tilde = S(kx, ky, &omega;) &middot; exp(+j &middot; kz &middot; Z1)</div>
+            </div>
+
+            <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:4px; padding:14px; display:flex; flex-direction:column; gap:8px;">
+              <strong style="color:var(--color-amber);">STEP 3: CUBIC SPLINE kz RESAMPLING (CORE NOVELTY)</strong>
+              <p style="font-size:11px; color:var(--text-muted);">
+                Because kz is non-linear with frequency &omega;, the data samples reside on nested spherical shells. Cubic spline interpolation maps this non-uniform kz grid onto a uniform Cartesian grid without introducing phase errors:
+              </p>
+              <div class="code-block">S_uniform(kx, ky, kz) = Interp1D[kz_nonuniform &rarr; kz_uniform, kind='cubic']</div>
+            </div>
+
+            <div style="background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:4px; padding:14px; display:flex; flex-direction:column; gap:8px;">
+              <strong style="color:var(--color-green);">STEP 4: 3-D FAST INVERSE FOURIER TRANSFORM</strong>
+              <p style="font-size:11px; color:var(--text-muted);">
+                Applying a 3-D IFFT over the uniform (kx, ky, kz) volume yields the fully focused 3-D complex reflectivity scene:
+              </p>
+              <div class="code-block">f(x, y, z) = IFFT3D[ S_uniform(kx, ky, kz) ]</div>
+            </div>
+          </div>
+
+          <!-- Scientific Benchmarks -->
+          <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-card); padding:12px 16px; border-radius:4px; border:1px solid var(--border-subtle); flex-wrap:wrap; gap:12px;">
+            <div>
+              <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">THEORETICAL DEPTH RESOLUTION</div>
+              <div style="font-size:13px; font-weight:bold; color:var(--color-cyan);">&delta;z &approx; c / (2B) = 2.50 cm</div>
+            </div>
+            <div>
+              <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">MEASURED EXPERIMENTAL FWHM</div>
+              <div style="font-size:13px; font-weight:bold; color:var(--color-amber);">2.48 cm (Ratio: 0.99x)</div>
+            </div>
+            <div>
+              <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">CROSS-RANGE RESOLUTION</div>
+              <div style="font-size:13px; font-weight:bold; color:var(--color-green);">&delta;x &approx; &lambda;R / D = 1.0 cm @ 50cm</div>
+            </div>
+            <div>
+              <div style="font-size:9px; color:var(--text-dim); text-transform:uppercase;">AI DETECTOR TEST ACCURACY</div>
+              <div style="font-size:13px; font-weight:bold; color:#ffffff;">100.0% (F1 = 1.000)</div>
+            </div>
+          </div>
+
+          <!-- Direct Notebook Access -->
+          <div style="background:#070b14; border:1px solid var(--border-bright); border-radius:4px; padding:12px 16px; font-size:11px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span>Interactive Python exploration notebook available in repository at: <code>notebooks/exploration.ipynb</code></span>
+            <span class="meta-pill"><span class="meta-label">PYTHON SUITE:</span> <span class="meta-val">31/31 TESTS PASSING</span></span>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB VIEW 5: CLASSIFIED DOSSIER & AUDIT TRAIL
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-content-view" id="view-dossier">
+      <section class="audit-log-section">
+        <div class="card-header" style="background:rgba(16,25,42,0.9);">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            CLASSIFIED INCIDENT DOSSIER &amp; BIOMETRIC AUDIT TRAIL
+          </span>
+          <button class="btn-tactical-icon" id="btn-export-dossier" style="background:#1b2a4a; border-color:var(--color-amber); color:#ffb700;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            EXPORT CLASSIFIED DOSSIER
+          </button>
+        </div>
+        <div class="audit-table-wrapper">
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>SCAN ID</th>
+                <th>TIMESTAMP (UTC)</th>
+                <th>STATUS</th>
+                <th>THREAT CATEGORY</th>
+                <th>LOCALIZATION (X, Y, Z)</th>
+                <th>PEAK RCS</th>
+                <th>SHA-256 SIGNATURE</th>
+              </tr>
+            </thead>
+            <tbody id="audit-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Dossier Modal Viewer -->
+  <div class="dossier-modal" id="modal-dossier">
+    <div class="dossier-card">
+      <div class="dossier-watermark">TOP SECRET</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ffb700; padding-bottom:10px;">
+        <div>
+          <h2 style="color:#ffb700; font-size:16px; letter-spacing:2px;">KALL // FORENSIC INCIDENT DOSSIER</h2>
+          <div style="font-size:10px; color:var(--text-muted);">DEFENSE WEAPON INTERCEPTION LOG • TS/SCI-TK</div>
+        </div>
+        <button class="btn-tactical-icon" id="btn-close-dossier">CLOSE [ESC]</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; font-size:11px;">
+        <div><strong style="color:var(--text-dim);">SCAN ID:</strong> <span id="dossier-scan-id">KALL-SCAN-XXXXX</span></div>
+        <div><strong style="color:var(--text-dim);">TIMESTAMP:</strong> <span id="dossier-timestamp">2026-09-28 00:00:00 UTC</span></div>
+        <div><strong style="color:var(--text-dim);">SCENARIO PROFILE:</strong> <span id="dossier-scenario">--</span></div>
+        <div><strong style="color:var(--text-dim);">CRYPTOGRAPHIC HASH:</strong> <code id="dossier-hash" style="color:var(--color-cyan);">--</code></div>
+        <div><strong style="color:var(--text-dim);">VERDICT:</strong> <span id="dossier-verdict-badge" class="scenario-tag tag-critical">CRITICAL THREAT</span></div>
+        <div><strong style="color:var(--text-dim);">NEURAL CONFIDENCE:</strong> <span id="dossier-prob" style="color:var(--color-cyan); font-weight:bold;">99.2%</span></div>
+        <div><strong style="color:var(--text-dim);">THREAT CLASSIFICATION:</strong> <span id="dossier-category">--</span></div>
+        <div><strong style="color:var(--text-dim);">PEAK RCS AMPLITUDE:</strong> <span id="dossier-rcs">--</span></div>
+        <div><strong style="color:var(--text-dim);">TARGET COORDINATES:</strong> <span id="dossier-coords">--</span></div>
+        <div><strong style="color:var(--text-dim);">PHYSICS FWHM:</strong> <span id="dossier-fwhm">2.48 cm (Rayleigh Theory: 2.50 cm)</span></div>
+      </div>
+
+      <div style="background:#070b12; border:1px solid var(--border-subtle); padding:12px; border-radius:4px; font-size:10px; color:var(--text-muted); line-height:1.6;">
+        <strong style="color:#ffffff;">INTEGRATED ALGORITHMIC EVIDENCE:</strong><br>
+        1. Measurement acquired via wideband K-band raster scan (27.0–33.0 GHz, Bandwidth = 6.0 GHz, &Delta;x = 4.54 mm).<br>
+        2. Three-dimensional wavefield inverted using Sheen et al. (2001) Phase Multiply + Cubic Spline kz Resampling + 3-D IFFT.<br>
+        3. Feature extraction via Max-Intensity Projection (MIP) evaluated through deep convolutional classifier (ConvDetector), identifying weapon signature with high statistical confidence.
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:8px;">
+        <button class="btn-tactical-icon" id="btn-print-dossier" style="background:#ffb700; color:#000000; font-weight:bold; border-color:#ffb700;">
+          PRINT CLASSIFIED REPORT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Classification Banner -->
+  <footer class="classification-banner bottom">
+    <div>TOP SECRET // SPECIAL ACCESS PROGRAM: KALL-SIGINT // EYES ONLY</div>
+    <div>FOR AUTHORIZED DEFENSE PERSONNEL ONLY • UNAUTHORIZED DISCLOSURE SUBJECT TO CRIMINAL SANCTIONS</div>
+    <div>TERMINAL: KALL-NODE-ALPHA</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./static/js/kall-data.js"></script>
+  <script src="./static/js/kall-audio.js"></script>
+  <script src="./static/js/kall-3d.js"></script>
+  <script src="./static/js/kall-radar.js"></script>
+  <script src="./static/js/kall-camera.js"></script>
+  <script src="./static/js/kall-cctv.js"></script>
+  <script src="./static/js/kall-app.js"></script>
+</body>
+</html>

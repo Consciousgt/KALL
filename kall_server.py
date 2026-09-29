@@ -69,7 +69,8 @@ logger = logging.getLogger("KALL")
 
 RESULTS_DIR = PROJECT_ROOT / "results"
 WEIGHTS_PATH = RESULTS_DIR / "detector_weights.pt"
-STATIC_DIR = PROJECT_ROOT / "web" / "static"
+STATIC_DIR = PROJECT_ROOT / "static"
+ROOT_INDEX = PROJECT_ROOT / "index.html"
 TEMPLATES_DIR = PROJECT_ROOT / "web" / "templates"
 AUDIT_LOG_FILE = PROJECT_ROOT / "web" / "audit_log.json"
 
@@ -235,9 +236,12 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class IndexHandler(BaseHandler):
     def get(self):
-        index_file = TEMPLATES_DIR / "index.html"
+        # Prefer root index.html (GitHub Pages unified landing page)
+        index_file = ROOT_INDEX
         if not index_file.exists():
-            self.write("<h1>KALL Web Portal Index Missing</h1>")
+            index_file = TEMPLATES_DIR / "index.html"
+        if not index_file.exists():
+            self.write("<h1>KALL Web Portal — Index Missing</h1>")
             return
         with open(index_file, "r", encoding="utf-8") as f:
             html = f.read()
@@ -614,9 +618,21 @@ class ScanHandler(BaseHandler):
 
 
 class AuditLogHandler(BaseHandler):
-    """Retrieves or clears the classified incident audit log."""
+    """Retrieves, appends, or clears the classified incident audit log."""
     def get(self):
         self.write({"audit_log": AUDIT_LOG})
+
+    def post(self):
+        """Accept a client-side audit log entry (browser / offline mode push)."""
+        try:
+            entry = json.loads(self.request.body.decode("utf-8"))
+            AUDIT_LOG.insert(0, entry)
+            if len(AUDIT_LOG) > 50:
+                AUDIT_LOG.pop()
+            save_audit_log()
+        except Exception:
+            pass
+        self.write({"status": "ok"})
 
     def delete(self):
         global AUDIT_LOG

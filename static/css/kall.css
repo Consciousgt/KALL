@@ -1,0 +1,1063 @@
+/* 
+  KALL // CLASSIFIED MILLIMETER-WAVE HOLOGRAPHIC DEFENSE PORTAL
+  TOP SECRET // NOFORN // SPECIAL ACCESS REQUIRED
+  Cyber-Tactical Aerospace & Defense Command UI Stylesheet
+*/
+
+:root {
+  --bg-deep: #06090f;
+  --bg-panel: #0b111c;
+  --bg-card: #10192a;
+  --bg-card-hover: #152238;
+  --border-subtle: #1c2b45;
+  --border-bright: #29426b;
+  --border-accent: #00f0ff;
+
+  --color-cyan: #00f0ff;
+  --color-cyan-glow: rgba(0, 240, 255, 0.35);
+  --color-green: #00ff88;
+  --color-green-glow: rgba(0, 255, 136, 0.35);
+  --color-amber: #ffb700;
+  --color-amber-glow: rgba(255, 183, 0, 0.35);
+  --color-red: #ff2a4b;
+  --color-red-glow: rgba(255, 42, 75, 0.45);
+  --color-purple: #b055ff;
+
+  --text-primary: #e6f0fa;
+  --text-muted: #7b94b2;
+  --text-dim: #445973;
+
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-bright);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-cyan);
+}
+
+/* CRT Scanlines Overlay (Toggleable) */
+.scanlines-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  opacity: 0.7;
+}
+
+body.no-scanlines .scanlines-overlay {
+  display: none;
+}
+
+/* Grid Cyber Background */
+.cyber-grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Top Secret Classification Banner */
+.classification-banner {
+  background: #1a1100;
+  color: #ffb700;
+  border-bottom: 1px solid rgba(255, 183, 0, 0.5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 4px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  text-transform: uppercase;
+}
+
+.classification-banner.bottom {
+  top: auto;
+  bottom: 0;
+  border-bottom: none;
+  border-top: 1px solid rgba(255, 183, 0, 0.5);
+}
+
+.banner-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffb700;
+  box-shadow: 0 0 8px #ffb700;
+  margin-right: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.6; }
+}
+
+/* App Header */
+.kall-header {
+  position: relative;
+  z-index: 10;
+  background: rgba(11, 17, 28, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kall-logo-badge {
+  background: linear-gradient(135deg, #0d2138, #05101c);
+  border: 1px solid var(--color-cyan);
+  box-shadow: 0 0 15px var(--color-cyan-glow);
+  padding: 4px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kall-logo-text {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-shadow: 0 0 10px var(--color-cyan);
+}
+
+.kall-subhead {
+  font-size: 9px;
+  color: var(--color-cyan);
+  letter-spacing: 1px;
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.meta-label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.meta-val {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.defcon-badge {
+  background: #3d0e14;
+  color: #ff4b60;
+  border: 1px solid #ff2a4b;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  animation: pulse-border 2s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 4px rgba(255, 42, 75, 0.4); }
+  50% { box-shadow: 0 0 12px rgba(255, 42, 75, 0.8); }
+  100% { box-shadow: 0 0 4px rgba(255, 42, 75, 0.4); }
+}
+
+.btn-tactical-icon {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-tactical-icon:hover {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  box-shadow: 0 0 8px var(--color-cyan-glow);
+}
+
+.btn-tactical-icon.active {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+}
+
+/* Layout Deck */
+.kall-workspace {
+  position: relative;
+  z-index: 10;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: 340px 1fr 420px;
+  gap: 18px;
+}
+
+@media (max-width: 1400px) {
+  .grid-3col {
+    grid-template-columns: 320px 1fr;
+  }
+  .grid-3col > .col-threat {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 980px) {
+  .grid-3col {
+    grid-template-columns: 1fr;
+  }
+  .grid-3col > .col-threat {
+    grid-column: span 1;
+  }
+}
+
+/* Tactical Panel Card */
+.tactical-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.tactical-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--color-cyan);
+  border-left: 2px solid var(--color-cyan);
+  pointer-events: none;
+}
+
+.tactical-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-bottom: 2px solid var(--color-cyan);
+  border-right: 2px solid var(--color-cyan);
+  pointer-events: none;
+}
+
+.card-header {
+  background: rgba(16, 25, 42, 0.8);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+}
+
+.card-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--color-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+/* Preset Scenario Selector Buttons */
+.scenario-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scenario-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 10px 12px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  position: relative;
+}
+
+.scenario-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-bright);
+}
+
+.scenario-btn.active {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+}
+
+.scenario-btn.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--color-cyan);
+}
+
+.scenario-top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scenario-title {
+  font-weight: 700;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+.scenario-tag {
+  font-size: 8px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.tag-critical {
+  background: rgba(255, 42, 75, 0.2);
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
+}
+.tag-high {
+  background: rgba(255, 183, 0, 0.2);
+  color: var(--color-amber);
+  border: 1px solid var(--color-amber);
+}
+.tag-clear {
+  background: rgba(0, 255, 136, 0.2);
+  color: var(--color-green);
+  border: 1px solid var(--color-green);
+}
+.tag-standoff {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--color-cyan);
+  border: 1px solid var(--color-cyan);
+}
+
+.scenario-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* Standoff Portal Scanner Visual */
+.portal-booth-view {
+  background: #080d14;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal-frame-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.scanner-beam-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
+  box-shadow: 0 0 10px var(--color-cyan);
+  animation: beamScan 3s ease-in-out infinite alternate;
+}
+
+@keyframes beamScan {
+  0% { top: 5%; }
+  100% { top: 95%; }
+}
+
+/* Big Scan Trigger Button */
+.btn-scan-trigger {
+  background: linear-gradient(135deg, #0e304f, #07192b);
+  border: 1px solid var(--color-cyan);
+  color: #ffffff;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 0 20px var(--color-cyan-glow);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-scan-trigger:hover {
+  background: linear-gradient(135deg, #124370, #0c2b4a);
+  box-shadow: 0 0 28px rgba(0, 240, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-scan-trigger:active {
+  transform: translateY(1px);
+}
+
+.btn-scan-trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
+/* 3-D Holographic Canvas Area */
+.canvas-3d-wrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background: #05080f;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#canvas-3d {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hologram-hud-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--color-cyan);
+}
+
+.hud-tag {
+  background: rgba(5, 10, 20, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+
+.hologram-controls-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: rgba(11, 17, 28, 0.88);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.controls-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+/* Range input styled */
+input[type="range"] {
+  -webkit-appearance: none;
+  background: var(--bg-card);
+  height: 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border-subtle);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-cyan);
+  box-shadow: 0 0 8px var(--color-cyan);
+  cursor: pointer;
+}
+
+/* AI Threat Verdict Box */
+.threat-verdict-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.threat-verdict-box.threat-active {
+  background: rgba(255, 42, 75, 0.08);
+  border-color: var(--color-red);
+  box-shadow: 0 0 20px var(--color-red-glow);
+}
+
+.threat-verdict-box.threat-clear {
+  background: rgba(0, 255, 136, 0.08);
+  border-color: var(--color-green);
+  box-shadow: 0 0 20px var(--color-green-glow);
+}
+
+.verdict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.verdict-status-badge {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.verdict-threat-badge {
+  background: var(--color-red);
+  color: #ffffff;
+  box-shadow: 0 0 12px var(--color-red);
+}
+
+.verdict-clear-badge {
+  background: var(--color-green);
+  color: #061009;
+  box-shadow: 0 0 12px var(--color-green);
+}
+
+.threat-confidence-gauge {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gauge-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.gauge-track {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gauge-fill {
+  height: 100%;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 5px;
+}
+
+.fill-red {
+  background: linear-gradient(90deg, #ff8c00, #ff2a4b);
+  box-shadow: 0 0 10px #ff2a4b;
+}
+
+.fill-green {
+  background: linear-gradient(90deg, #00f0ff, #00ff88);
+  box-shadow: 0 0 10px #00ff88;
+}
+
+/* Radar & Slice Canvases */
+.radar-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.canvas-2d-box {
+  background: #040810;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#canvas-mip {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.crosshair-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle, transparent 30%, rgba(0, 240, 255, 0.05) 31%, transparent 32%),
+    radial-gradient(circle, transparent 60%, rgba(0, 240, 255, 0.05) 61%, transparent 62%);
+}
+
+/* Range Profile Canvas */
+.canvas-range-box {
+  background: #040810;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+
+#canvas-range-profile {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Telemetry Mini Table */
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.telem-cell {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.telem-label {
+  font-size: 8px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.telem-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-cyan);
+}
+
+/* Classified Audit Log Table */
+.audit-log-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.audit-table-wrapper {
+  overflow-x: auto;
+  max-height: 240px;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  text-align: left;
+}
+
+.audit-table th {
+  background: var(--bg-card);
+  color: var(--text-dim);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.audit-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(28, 43, 69, 0.4);
+  color: var(--text-primary);
+}
+
+.audit-table tr:hover td {
+  background: rgba(0, 240, 255, 0.04);
+}
+
+/* Modal for Classified Dossier / Report */
+.dossier-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 6, 12, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.dossier-modal.open {
+  display: flex;
+}
+
+.dossier-card {
+  background: #090e18;
+  border: 2px solid #ffb700;
+  box-shadow: 0 0 40px rgba(255, 183, 0, 0.25);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+}
+
+.dossier-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 72px;
+  font-weight: 900;
+  color: rgba(255, 183, 0, 0.05);
+  letter-spacing: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .kall-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   MAIN NAVIGATION TABS
+   ────────────────────────────────────────────────────────────────────────── */
+.kall-nav-bar {
+  position: relative;
+  z-index: 10;
+  background: #090e18;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0 24px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.nav-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.nav-tab-btn:hover {
+  color: var(--color-cyan);
+  background: rgba(0, 240, 255, 0.04);
+}
+
+.nav-tab-btn.active {
+  color: #ffffff;
+  border-bottom-color: var(--color-cyan);
+  background: rgba(0, 240, 255, 0.08);
+}
+
+.nav-tab-btn .tab-badge {
+  font-size: 8px;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: var(--bg-card);
+  color: var(--color-cyan);
+  border: 1px solid var(--border-bright);
+}
+
+/* Tab Views Container */
+.tab-content-view {
+  display: none;
+}
+
+.tab-content-view.active {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   MOBILE & CCTV AR OPTICAL-RADAR FUSION STYLES
+   ────────────────────────────────────────────────────────────────────────── */
+.ar-camera-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  background: #000000;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ar-video-feed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#ar-canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+.ar-floating-controls {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(11, 17, 28, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-bright);
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   STANDOFF CCTV PERIMETER TRACKER STYLES
+   ────────────────────────────────────────────────────────────────────────── */
+.cctv-tracker-wrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  background: #040810;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#canvas-cctv-tracker {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PHYSICS & THEORY CARDS
+   ────────────────────────────────────────────────────────────────────────── */
+.theory-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 18px;
+}
+
+.code-block {
+  background: #05080f;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-cyan);
+  overflow-x: auto;
+}
+

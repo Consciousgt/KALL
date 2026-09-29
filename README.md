@@ -80,6 +80,19 @@ to a reflective surface in the scene.
 
 ```
 mmwave-imaging/
+├── index.html           # ★ GitHub Pages unified landing page (5-tab portal)
+├── .nojekyll            # Disables Jekyll so GitHub Pages serves raw files
+├── static/              # Frontend assets — served by GitHub Pages & Tornado
+│   ├── css/
+│   │   └── kall.css         # Military tactical dark UI + CRT effects
+│   └── js/
+│       ├── kall-app.js      # Main controller (dual backend/client mode)
+│       ├── kall-data.js     # Client-side physics data store (offline mode)
+│       ├── kall-3d.js       # WebGL holographic voxel volume viewer
+│       ├── kall-radar.js    # 2-D heatmap + range profile plotter
+│       ├── kall-camera.js   # Live webcam AR overlay (weapon detection HUD)
+│       ├── kall-cctv.js     # Standoff perimeter tracker (animated 2-D corridor)
+│       └── kall-audio.js    # Procedural Web Audio engine (no external files)
 ├── simulation/
 │   ├── targets.py       # scene definitions (point scatterers, weapon silhouettes)
 │   └── array_sim.py     # simulate scanned-aperture scattered field data
@@ -93,6 +106,9 @@ mmwave-imaging/
 │   └── detector.py      # small CNN classifier
 ├── tests/               # pytest unit tests (simulation, single-freq, wideband)
 ├── results/             # saved figures and model weights
+├── kall_server.py       # Tornado HTTP backend (AI physics engine)
+├── run_kall.py          # One-command launcher (opens browser automatically)
+├── run_kall.bat         # Windows double-click launcher
 ├── run_physics.py       # Phase 1 end-to-end demo
 └── run_ml.py            # Phase 2 CNN training + evaluation
 ```
@@ -101,19 +117,57 @@ mmwave-imaging/
 
 ## KALL // Top Security Defense Web Portal
 
-The entire physics reconstruction pipeline and deep-learning threat detector are wrapped into **KALL** — a classified aerospace & defense command portal featuring real-time walk-through standoff screening, an interactive 3-D holographic voxel visualizer, depth-slice scrubbing, and automated cryptographic incident dossiers.
+The entire physics reconstruction pipeline and deep-learning threat detector are wrapped into **KALL** — a classified aerospace & defense command portal featuring:
 
-### Launch KALL Web Portal
+| Feature | Description |
+|---|---|
+| 🔬 **Holographic Scanner** | Real-time 3-D wideband reconstruction with interactive voxel viewer |
+| 📱 **Mobile AR Camera** | Live webcam feed with weapon-detection HUD overlay |
+| 📡 **Standoff CCTV Tracker** | Animated 2-D corridor perimeter alarm (3–8 m range) |
+| 📐 **Physics Theory** | Interactive equations, algorithm walkthrough, resolution analytics |
+| 🗂 **Classified Dossier** | Cryptographic incident log, CNN weights, full audit trail |
+
+### Dual-Mode Operation
+
+KALL runs in two modes — detected automatically at page load:
+
+| Mode | When active | Data source |
+|---|---|---|
+| **Full AI Physics** | Running locally via `python run_kall.py` | Tornado backend → real holographic reconstruction + CNN |
+| **Standalone (offline)** | Hosted on GitHub Pages | Client-side pre-generated physics data (`kall-data.js`) |
+
+No code changes needed — `kall-app.js` probes `/api/status` on load and switches modes transparently.
+
+### 🌐 GitHub Pages — Static Hosting
+
+Push once and share instantly:
 
 ```bash
-# Option A: One-command launcher (automatically launches browser at http://localhost:8080)
+git add -A
+git commit -m "feat(kall): unified landing page + AR camera + CCTV standoff tracker"
+git push origin main
+```
+
+Then enable GitHub Pages in your repo **Settings → Pages → Source: Deploy from branch → `main` / `(root)`**.
+
+Your live URL will be:
+```
+https://<your-github-username>.github.io/<repo-name>/
+```
+
+The `index.html` at the repo root is automatically served as the landing page. All 5 portal tabs work fully offline via the client-side physics engine — no server required.
+
+### 💻 Local Launch (Full AI Backend)
+
+```bash
+# Option A: One-command launcher (automatically opens browser at http://localhost:8080)
 python run_kall.py
 
 # Option B: Windows desktop double-click launcher
 run_kall.bat
 ```
 
-Open `http://localhost:8080` to access the classified operator console.
+Open `http://localhost:8080` for the classified operator console with live AI physics processing.
 
 ---
 
