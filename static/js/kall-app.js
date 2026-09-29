@@ -405,12 +405,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isMuted) audio.playRadarPing();
   });
 
-  btnScanlines.addEventListener("click", () => {
-    audio.playClick();
-    const hasScanlines = document.body.classList.toggle("with-scanlines");
-    btnScanlines.classList.toggle("active", hasScanlines);
-    btnScanlines.textContent = hasScanlines ? "SCANLINES: ON" : "SCANLINES: OFF";
-  });
+  if (btnScanlines) {
+    btnScanlines.addEventListener("click", () => {
+      audio.playClick();
+      const hasScanlines = document.body.classList.toggle("with-scanlines");
+      btnScanlines.classList.toggle("active", hasScanlines);
+      btnScanlines.textContent = hasScanlines ? "SCANLINES: ON" : "SCANLINES: OFF";
+    });
+  }
 
   // 9. Mobile & CCTV AR Camera Controls
   btnToggleCam.addEventListener("click", async () => {

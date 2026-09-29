@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KALL // Millimeter-Wave Holographic Defense & Threat Detection</title>
+  <title>KALL // Millimeter-Wave Holographic Radar & Threat Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/kall.css">
 </head>
 <body>
-  <!-- CRT Scanlines and Cyber Grid (toggleable) -->
-  <div class="scanlines-overlay"></div>
-  <div class="cyber-grid-bg"></div>
 
   <!-- Top System Header -->
   <header class="kall-header">
@@ -50,7 +50,6 @@
         <span class="meta-val" id="local-clock" style="color:var(--text-dim); margin-left:6px;">00:00:00 LOC</span>
       </div>
       <button class="btn-tactical-icon" id="btn-mute-toggle" title="Toggle Audio Feedback">AUDIO: ACTIVE</button>
-      <button class="btn-tactical-icon" id="btn-scanlines-toggle" title="Toggle Scanline Effect">SCANLINES: OFF</button>
     </div>
   </header>
 
@@ -94,6 +93,17 @@
          TAB VIEW 1: TACTICAL PORTAL SCANNER (CORE)
          ────────────────────────────────────────────────────────────────── -->
     <div class="tab-content-view active" id="view-portal">
+      <!-- Mission Brief / Plain-Language Orientation Bar -->
+      <div class="mission-brief-bar">
+        <div class="brief-lead">
+          <span class="brief-pill">CHECKPOINT PORTAL</span>
+          <span class="brief-title">Non-Invasive Millimeter-Wave Holographic Screening</span>
+        </div>
+        <p class="brief-text">
+          Select a subject scenario on the left, then click <strong>START RADAR SCAN</strong>. The system penetrates clothing using safe 27.0–33.0 GHz radio waves, reconstructs concealed objects in 3-D, and classifies threats via deep neural networks in real time.
+        </p>
+      </div>
+
       <div class="grid-3col">
 
         <!-- Column 1: Threat Surveillance & Portal Ingestion -->
@@ -101,7 +111,7 @@
           <div class="card-header">
             <span class="card-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              SURVEILLANCE INGESTION
+              1. SUBJECT &amp; SCENARIO
             </span>
             <span class="card-badge">INPUT TELEMETRY</span>
           </div>
@@ -191,6 +201,9 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
               <span>START RADAR SCAN</span>
             </button>
+            <div class="scan-btn-hint">
+              Triggers 27.0–33.0 GHz wideband wavefield sweep, 3-D holographic inversion, and AI threat inference
+            </div>
 
             <!-- RF Hardware Mini Telemetry -->
             <div class="telemetry-grid">
@@ -220,7 +233,7 @@
           <div class="card-header">
             <span class="card-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-              3-D Holographic Body Scan
+              2. 3-D HOLOGRAPHIC RECONSTRUCTION
             </span>
             <span class="card-badge" style="color:var(--color-cyan);">INTERACTIVE — CLICK &amp; DRAG</span>
           </div>
@@ -275,7 +288,7 @@
           <div class="card-header">
             <span class="card-title">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              AI DETECTION &amp; RADAR CROSS-SECTION
+              3. AI VERDICT &amp; DEPTH ANALYSIS
             </span>
             <span class="card-badge" style="color:var(--color-red);">ConvDetector CNN</span>
           </div>
